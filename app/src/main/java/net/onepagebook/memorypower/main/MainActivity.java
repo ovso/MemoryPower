@@ -20,11 +20,9 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     BottomNavigationView mNavigationView;
     @BindView(R.id.viewpager)
     ViewPager mViewpager;
-    MenuItem prevMenuItem;
+    MenuItem mBottomNavigationPrevMenuItem;
     private Unbinder mUnbinder;
     private MainPresenter mPresenter;
-    private HomeFragment mHomeFragment;
-    private SettingFragment mSettingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     }
 
     @Override
-    public void setViewPagerAdapter() {
+    public void setViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addItem(HomeFragment.newInstance());
         adapter.addItem(SettingFragment.newInstance());
@@ -59,14 +57,6 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 mPresenter.onPageSelected(position);
-                if (prevMenuItem != null) {
-                    prevMenuItem.setChecked(false);
-                } else {
-                    mNavigationView.getMenu().getItem(0).setChecked(false);
-                }
-                mNavigationView.getMenu().getItem(position).setChecked(true);
-                prevMenuItem = mNavigationView.getMenu().getItem(position);
-
             }
         });
     }
@@ -79,5 +69,17 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     @Override
     public void gotoSetting() {
         mViewpager.setCurrentItem(BottomNavigationMenu.SETTING.getPosition(), true);
+    }
+
+    @Override
+    public void setBottomNavigation(int position) {
+        if (mBottomNavigationPrevMenuItem != null) {
+            mBottomNavigationPrevMenuItem.setChecked(false);
+        } else {
+            mNavigationView.getMenu().getItem(BottomNavigationMenu.HOME.getPosition()).setChecked
+                    (false);
+        }
+        mNavigationView.getMenu().getItem(position).setChecked(true);
+        mBottomNavigationPrevMenuItem = mNavigationView.getMenu().getItem(position);
     }
 }

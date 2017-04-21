@@ -11,12 +11,14 @@ public interface MainPresenter extends Presenter {
     void onPageSelected(int position);
 
     interface View extends Presenter.View {
-        void setViewPagerAdapter();
+        void setViewPager();
 
         void addListener();
 
         void gotoHome();
 
         void gotoSetting();
+
+        void setBottomNavigation(int position);
     }
 }

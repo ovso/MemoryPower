@@ -13,7 +13,7 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void onCreate() {
         mView.addListener();
-        mView.setViewPagerAdapter();
+        mView.setViewPager();
     }
 
     @Override
@@ -31,13 +31,6 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onPageSelected(int position) {
-        BottomNavigationMenu type = BottomNavigationMenu.values()[position];
-        switch (type) {
-            case HOME:
-
-                break;
-            case SETTING:
-                break;
-        }
+        mView.setBottomNavigation(position);
     }
 }

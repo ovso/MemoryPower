@@ -8,12 +8,15 @@ public interface MainPresenter extends Presenter {
 
     boolean onNavigationItemSelected(int itemId);
 
+    void onPageSelected(int position);
+
     interface View extends Presenter.View {
-        void replaceHomeFragment();
-        void replaceSettingFragment();
+        void setViewPagerAdapter();
 
-        void addEventListener();
+        void addListener();
 
-        void showHomeFragment();
+        void gotoHome();
+
+        void gotoSetting();
     }
 }

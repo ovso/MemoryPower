@@ -2,7 +2,7 @@ package net.onepagebook.memorypower.main;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import net.onepagebook.memorypower.R;
@@ -17,11 +17,11 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
 
     @BindView(R.id.navigation)
     BottomNavigationView mNavigationView;
-    @BindView(R.id.viewpager)
-    ViewPager mViewPager;
 
     private Unbinder mUnbinder;
     private MainPresenter mPresenter;
+    private HomeFragment mHomeFragment;
+    private SettingFragment mSettingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,27 +32,53 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
         mPresenter = new MainPresenterImpl(this);
         mPresenter.onCreate();
 
-        mNavigationView.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mViewPager.setCurrentItem(0, true);
-                    break;
-                case R.id.navigation_setting:
-                    mViewPager.setCurrentItem(1, true);
-                    break;
-            }
-            return false;
-        });
+    }
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addItems(HomeFragment.newInstance(null));
-        adapter.addItems(SettingFragment.newInstance(null));
-        mViewPager.setAdapter(adapter);
+    private HomeFragment getHomeFragment() {
+        if (mHomeFragment == null) {
+            mHomeFragment = HomeFragment.newInstance();
+        }
+        return mHomeFragment;
+    }
+
+    private SettingFragment getSettingFragment() {
+        if (mSettingFragment == null) {
+            mSettingFragment = SettingFragment.newInstance();
+        }
+        return mSettingFragment;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
+    }
+
+    @Override
+    public void replaceHomeFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, getHomeFragment());
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void replaceSettingFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, getSettingFragment());
+        fragmentTransaction.commit();
+
+    }
+
+    @Override
+    public void addEventListener() {
+        mNavigationView.setOnNavigationItemSelectedListener(item -> mPresenter
+                .onNavigationItemSelected(item.getItemId()));
+    }
+
+    @Override
+    public void showHomeFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container, getHomeFragment());
+        fragmentTransaction.commit();
     }
 }

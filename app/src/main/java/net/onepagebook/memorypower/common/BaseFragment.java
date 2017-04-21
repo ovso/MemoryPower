@@ -12,11 +12,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
-    public static Fragment newInstance(Bundle bundle) {
-        Fragment f = new Fragment();
-        f.setArguments(bundle);
-        return f;
-    }
+    private Unbinder mUnbinder;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
@@ -24,7 +21,6 @@ public abstract class BaseFragment extends Fragment {
         return inflater.inflate(getLayoutRes(), container, false);
     }
 
-    private Unbinder mUnbinder;
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

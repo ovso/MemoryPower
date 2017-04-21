@@ -6,7 +6,14 @@ package net.onepagebook.memorypower.main;
 
 public interface MainPresenter extends Presenter {
 
-    interface View extends Presenter.View {
+    boolean onNavigationItemSelected(int itemId);
 
+    interface View extends Presenter.View {
+        void replaceHomeFragment();
+        void replaceSettingFragment();
+
+        void addEventListener();
+
+        void showHomeFragment();
     }
 }

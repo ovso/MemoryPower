@@ -5,4 +5,7 @@
     <item name="navigation_home" type="id" />
     <item name="navigation_setting" type="id" />
     <item name="viewpager" type="id" />
+    <item name="title_textview" type="id"/>
+    <item name="info_textview" type="id"/>
+    <item name="start_button" type="id"/>
 </resources>

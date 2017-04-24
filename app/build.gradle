@@ -38,4 +38,5 @@ dependencies {
 
     compile "com.jakewharton:butterknife:$rootProject.butterknifeVer"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVer"
+
 }

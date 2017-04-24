@@ -1,16 +1,42 @@
 package net.onepagebook.memorypower.home;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.widget.TextView;
+
 import net.onepagebook.memorypower.R;
 import net.onepagebook.memorypower.common.BaseFragment;
 
-public class HomeFragment extends BaseFragment {
+import butterknife.BindView;
+import butterknife.OnClick;
+
+public class HomeFragment extends BaseFragment implements HomeFragmentPresenter.View {
+
+    @BindView(R.id.title_textview)
+    TextView mTitleTextView;
+    @BindView(R.id.info_textview)
+    TextView mInfoTextView;
+
+    private HomeFragmentPresenter mHomeFragmentPresenter;
+
     public static HomeFragment newInstance() {
         HomeFragment f = new HomeFragment();
         return f;
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mHomeFragmentPresenter = new HomeFragmentPresenterImpl(this);
+    }
+
+    @Override
     protected int getLayoutRes() {
         return R.layout.fragment_home;
+    }
+
+    @OnClick(R.id.start_button)
+    void onClickStartButton() {
+        mHomeFragmentPresenter.onClickStartButton();
     }
 }

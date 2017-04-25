@@ -12,10 +12,10 @@ import butterknife.OnClick;
 
 public class HomeFragment extends BaseFragment implements HomeFragmentPresenter.View {
 
-    @BindView(R.id.title_textview)
-    TextView mTitleTextView;
-    @BindView(R.id.info_textview)
-    TextView mInfoTextView;
+    @BindView(R.id.subject_textview)
+    TextView mSubjectTextView;
+    @BindView(R.id.content_textview)
+    TextView mContentTextView;
 
     private HomeFragmentPresenter mHomeFragmentPresenter;
 
@@ -38,5 +38,15 @@ public class HomeFragment extends BaseFragment implements HomeFragmentPresenter.
     @OnClick(R.id.start_button)
     void onClickStartButton() {
         mHomeFragmentPresenter.onClickStartButton();
+    }
+
+    @Override
+    public void setSubject(String subject) {
+        mSubjectTextView.setText(subject);
+    }
+
+    @Override
+    public void setContent(String content) {
+        mContentTextView.setText(content);
     }
 }

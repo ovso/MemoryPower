@@ -21,8 +21,6 @@ class MemoryPowerPlayer {
         int cycleInterval = displayInterval + blankInterval;
         int millisInFuture = (playCount * (cycleInterval)) + cycleInterval;
 
-
-        Log.d("millisInFuture = " + millisInFuture);
         SimpleCountDownTimer timer = new SimpleCountDownTimer(millisInFuture, cycleInterval) {
 
             @Override
@@ -30,17 +28,18 @@ class MemoryPowerPlayer {
                 int index = (int) ((millisInFuture - millisUntilFinished) / cycleInterval);
                 if (onPlayerListener != null) {
                     onPlayerListener.onTick(index);
-                    if (isLasIndex(playCount, index)) onPlayerListener.onFinish(index);
+                    if (isLastIndex(playCount, index)) onPlayerListener.onFinish(index);
                     new Handler().postDelayed(() -> onPlayerListener.OnEndOfDisplayInterval(),
                             displayInterval);
+                    Handler h = new Handler();
                 }
             }
         };
         timer.start();
     }
 
-    private boolean isLasIndex(int size, int index) {
-        return (size - 1) == index ? true : false;
+    private boolean isLastIndex(int size, int index) {
+        return (size - 1) == index;
     }
 
     public interface OnPlayerListener {

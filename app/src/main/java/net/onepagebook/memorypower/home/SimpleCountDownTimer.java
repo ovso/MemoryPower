@@ -2,10 +2,6 @@ package net.onepagebook.memorypower.home;
 
 import android.os.CountDownTimer;
 
-/**
- * Created by ovso on 2017. 4. 26..
- */
-
 public class SimpleCountDownTimer extends CountDownTimer {
     /**
      * @param millisInFuture    The number of millis in the future from the call

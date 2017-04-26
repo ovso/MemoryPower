@@ -2,8 +2,7 @@ package net.onepagebook.memorypower.home;
 
 import java.util.ArrayList;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 class HomeFragmentDatabase {
 
@@ -103,12 +102,9 @@ class HomeFragmentDatabase {
         mSampleMainPointNoteList.add(note);
     }
 
+    @Data
     public final static class SampleMainPointNote {
-        @Getter
-        @Setter
         private String subject;
-        @Getter
-        @Setter
         private String content;
     }
 }

@@ -43,7 +43,7 @@ class HomeFragmentPresenterImpl implements HomeFragmentPresenter {
     public void onClickStartButton() {
         int count = mDatabase.getCount();
         int displayInterval = 500;
-        int blankInterval = 1000;
+        int blankInterval = 500;
 
         mPlayer.setDisplayInterval(displayInterval);
         mPlayer.setBlankInterval(blankInterval);

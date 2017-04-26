@@ -2,8 +2,6 @@ package net.onepagebook.memorypower.home;
 
 import android.os.CountDownTimer;
 
-import net.onepagebook.memorypower.common.Log;
-
 /**
  * Created by ovso on 2017. 4. 26..
  */
@@ -23,7 +21,6 @@ public class SimpleCountDownTimer extends CountDownTimer {
 
     @Override
     public void onTick(long millisUntilFinished) {
-        Log.d("millisUntilFinished = " + millisUntilFinished);
     }
 
     @Override

@@ -28,4 +28,5 @@ ext {
     butterknifeVer = '8.5.1'
     constraintLayoutVer = '1.0.0'
     timberVer = '4.5.1'
+    lombokVer = '1.16.16' // & install Android Studio lombok plugin
 }

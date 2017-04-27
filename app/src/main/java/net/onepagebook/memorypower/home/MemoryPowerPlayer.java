@@ -1,9 +1,5 @@
 package net.onepagebook.memorypower.home;
 
-import android.os.Handler;
-
-import net.onepagebook.memorypower.common.Log;
-
 import lombok.Setter;
 
 class MemoryPowerPlayer {
@@ -14,24 +10,18 @@ class MemoryPowerPlayer {
     private int playCount;
     @Setter
     private int displayInterval;
-    @Setter
-    private int blankInterval;
 
     void play() {
-        int cycleInterval = displayInterval + blankInterval;
-        int millisInFuture = (playCount * (cycleInterval)) + cycleInterval;
+        int millisInFuture = (playCount * (displayInterval)) + displayInterval;
 
-        SimpleCountDownTimer timer = new SimpleCountDownTimer(millisInFuture, cycleInterval) {
+        SimpleCountDownTimer timer = new SimpleCountDownTimer(millisInFuture, displayInterval) {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                int index = (int) ((millisInFuture - millisUntilFinished) / cycleInterval);
+                int index = (int) ((millisInFuture - millisUntilFinished) / displayInterval);
                 if (onPlayerListener != null) {
                     onPlayerListener.onTick(index);
                     if (isLastIndex(playCount, index)) onPlayerListener.onFinish(index);
-                    new Handler().postDelayed(() -> onPlayerListener.OnEndOfDisplayInterval(),
-                            displayInterval);
-                    Handler h = new Handler();
                 }
             }
         };
@@ -46,7 +36,5 @@ class MemoryPowerPlayer {
         void onTick(int index);
 
         void onFinish(int index);
-
-        void OnEndOfDisplayInterval();
     }
 }

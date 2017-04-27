@@ -43,5 +43,5 @@ dependencies {
 
     compile "com.jakewharton.timber:timber:$rootProject.timberVer"
 
-    compile "org.projectlombok:lombok:1.16.16"
+    compile "org.projectlombok:lombok:$rootProject.lombokVer"
 }

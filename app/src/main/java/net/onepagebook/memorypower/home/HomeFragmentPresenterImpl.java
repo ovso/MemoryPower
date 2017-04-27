@@ -30,25 +30,13 @@ class HomeFragmentPresenterImpl implements HomeFragmentPresenter {
             public void onFinish(int index) {
                 Log.d("onFinish(" + index + ")");
             }
-
-            @Override
-            public void OnEndOfDisplayInterval() {
-                mView.setSubject(null);
-                mView.setContent(null);
-            }
         };
     }
 
     @Override
     public void onClickStartButton() {
-        int count = mDatabase.getCount();
-        int displayInterval = 500;
-        int blankInterval = 500;
-
-        mPlayer.setDisplayInterval(displayInterval);
-        mPlayer.setBlankInterval(blankInterval);
-        mPlayer.setPlayCount(count);
+        mPlayer.setDisplayInterval(500);
+        mPlayer.setPlayCount(mDatabase.getCount());
         mPlayer.play();
     }
-
 }

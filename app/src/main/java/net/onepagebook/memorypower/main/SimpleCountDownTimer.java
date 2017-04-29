@@ -1,4 +1,4 @@
-package net.onepagebook.memorypower.home;
+package net.onepagebook.memorypower.main;
 
 import android.os.CountDownTimer;
 

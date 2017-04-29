@@ -35,7 +35,6 @@ dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibVer"
     compile "com.android.support:design:$rootProject.ext.supportLibVer"
     compile "com.android.support:support-vector-drawable:$rootProject.ext.supportLibVer"
-    compile "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVer"
     testCompile 'junit:junit:4.12'
 
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVer"
@@ -44,4 +43,5 @@ dependencies {
     compile "com.jakewharton.timber:timber:$rootProject.ext.timberVer"
     compile "org.projectlombok:lombok:$rootProject.ext.lombokVer"
     compile "org.adw.library:discrete-seekbar:$rootProject.ext.discreteSeekbarVer"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">MemoryPower</string>
     <string name="file_open">Open</string>
-    <string name="title_home">Home</string>
-    <string name="title_setting">Setting</string>
     <string name="start">시작</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
 </resources>

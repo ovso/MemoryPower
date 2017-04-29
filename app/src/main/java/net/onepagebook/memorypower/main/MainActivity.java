@@ -1,29 +1,40 @@
 package net.onepagebook.memorypower.main;
 
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.view.ViewPager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import net.onepagebook.memorypower.R;
-import net.onepagebook.memorypower.home.HomeFragment;
-import net.onepagebook.memorypower.setting.SettingFragment;
+
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity implements MainPresenter.View {
+public class MainActivity extends AppCompatActivity implements MainPresenter.View, NavigationView
+        .OnNavigationItemSelectedListener {
 
-    @BindView(R.id.navigation)
-    BottomNavigationView mNavigationView;
-    @BindView(R.id.viewpager)
-    ViewPager mViewpager;
-    MenuItem mBottomNavigationPrevMenuItem;
-    private Unbinder mUnbinder;
     private MainPresenter mPresenter;
+    private Unbinder mUnbinder;
+
+    @BindView(R.id.subject_textview)
+    TextView mSubjectTextView;
+    @BindView(R.id.content_textview)
+    TextView mContentTextView;
+    @BindView(R.id.speed_seekbar)
+    DiscreteSeekBar mSpeedSeekbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +42,51 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
         setContentView(R.layout.activity_main);
         mUnbinder = ButterKnife.bind(this);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action",
+                Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string
+                .navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         mPresenter = new MainPresenterImpl(this);
         mPresenter.onCreate();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+
     }
 
     @Override
@@ -42,45 +96,18 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     }
 
     @Override
-    public void setViewPager() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addItem(HomeFragment.newInstance());
-        adapter.addItem(SettingFragment.newInstance());
-        mViewpager.setAdapter(adapter);
+    public void setSubject(String subject) {
+        mSubjectTextView.setText(subject);
     }
 
     @Override
-    public void addListener() {
-        mNavigationView.setOnNavigationItemSelectedListener(item -> mPresenter
-                .onNavigationItemSelected(item.getItemId()));
-        mViewpager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                mPresenter.onPageSelected(position);
-            }
-        });
+    public void setContent(String content) {
+        mContentTextView.setText(content);
     }
 
-    @Override
-    public void gotoHome() {
-        mViewpager.setCurrentItem(BottomNavigationMenu.HOME.getPosition(), true);
+    @OnClick(R.id.start_button)
+    void onClickStartButton() {
+        mPresenter.onClickStartButton();
     }
 
-    @Override
-    public void gotoSetting() {
-        mViewpager.setCurrentItem(BottomNavigationMenu.SETTING.getPosition(), true);
-    }
-
-    @Override
-    public void setBottomNavigation(int position) {
-        if (mBottomNavigationPrevMenuItem != null) {
-            mBottomNavigationPrevMenuItem.setChecked(false);
-        } else {
-            mNavigationView.getMenu().getItem(BottomNavigationMenu.HOME.getPosition()).setChecked
-                    (false);
-        }
-        mNavigationView.getMenu().getItem(position).setChecked(true);
-        mBottomNavigationPrevMenuItem = mNavigationView.getMenu().getItem(position);
-    }
 }

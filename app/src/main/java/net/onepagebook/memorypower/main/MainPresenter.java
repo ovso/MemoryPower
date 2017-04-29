@@ -2,19 +2,11 @@ package net.onepagebook.memorypower.main;
 
 public interface MainPresenter extends Presenter {
 
-    boolean onNavigationItemSelected(int itemId);
-
-    void onPageSelected(int position);
+    void onClickStartButton();
 
     interface View extends Presenter.View {
-        void setViewPager();
+        void setSubject(String subject);
+        void setContent(String content);
 
-        void addListener();
-
-        void gotoHome();
-
-        void gotoSetting();
-
-        void setBottomNavigation(int position);
     }
 }

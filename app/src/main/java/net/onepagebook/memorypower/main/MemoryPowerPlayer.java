@@ -1,6 +1,4 @@
-package net.onepagebook.memorypower.home;
-
-import net.onepagebook.memorypower.main.SimpleCountDownTimer;
+package net.onepagebook.memorypower.main;
 
 import lombok.Setter;
 

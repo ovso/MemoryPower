@@ -7,6 +7,8 @@ import android.widget.TextView;
 import net.onepagebook.memorypower.R;
 import net.onepagebook.memorypower.common.BaseFragment;
 
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -16,6 +18,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentPresenter.
     TextView mSubjectTextView;
     @BindView(R.id.content_textview)
     TextView mContentTextView;
+    @BindView(R.id.speed_seekbar)
+    DiscreteSeekBar mSpeedSeekbar;
 
     private HomeFragmentPresenter mHomeFragmentPresenter;
 

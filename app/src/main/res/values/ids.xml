@@ -8,4 +8,5 @@
     <item name="subject_textview" type="id"/>
     <item name="content_textview" type="id"/>
     <item name="start_button" type="id"/>
+    <item name="speed_seekbar" type="id"/>
 </resources>

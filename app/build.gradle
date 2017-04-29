@@ -32,16 +32,16 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibVer"
-    compile "com.android.support:design:$rootProject.supportLibVer"
-    compile "com.android.support:support-vector-drawable:$rootProject.supportLibVer"
-    compile "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVer"
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibVer"
+    compile "com.android.support:design:$rootProject.ext.supportLibVer"
+    compile "com.android.support:support-vector-drawable:$rootProject.ext.supportLibVer"
+    compile "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVer"
     testCompile 'junit:junit:4.12'
 
-    compile "com.jakewharton:butterknife:$rootProject.butterknifeVer"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVer"
+    compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVer"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVer"
 
-    compile "com.jakewharton.timber:timber:$rootProject.timberVer"
-
-    compile "org.projectlombok:lombok:$rootProject.lombokVer"
+    compile "com.jakewharton.timber:timber:$rootProject.ext.timberVer"
+    compile "org.projectlombok:lombok:$rootProject.ext.lombokVer"
+    compile "org.adw.library:discrete-seekbar:$rootProject.ext.discreteSeekbarVer"
 }

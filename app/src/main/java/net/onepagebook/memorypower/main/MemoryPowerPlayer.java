@@ -1,31 +1,51 @@
 package net.onepagebook.memorypower.main;
 
+import lombok.Getter;
 import lombok.Setter;
 
 class MemoryPowerPlayer {
-
+    @Getter
+    private PlayingStatus playingStatus;
     @Setter
     private OnPlayerListener onPlayerListener;
     @Setter
-    private int playCount;
+    private int totalPlayCount;
+    @Setter
+    private int remainingPlayCount;
     @Setter
     private int displayInterval;
 
-    void play() {
-        int millisInFuture = (playCount * (displayInterval)) + displayInterval;
+    private SimpleCountDownTimer countDownTimer;
+    private int playIndex;
+    MemoryPowerPlayer() {
+        playingStatus = PlayingStatus.STOP;
+    }
 
-        SimpleCountDownTimer timer = new SimpleCountDownTimer(millisInFuture, displayInterval) {
+    void play() {
+        onPlayerListener.play();
+        playingStatus = PlayingStatus.PLAYING;
+        int millisInFuture = (totalPlayCount * (displayInterval)) + displayInterval;
+
+        countDownTimer = new SimpleCountDownTimer(millisInFuture, displayInterval) {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                int index = (int) ((millisInFuture - millisUntilFinished) / displayInterval);
+                playIndex = (int) ((millisInFuture - millisUntilFinished) / displayInterval);
                 if (onPlayerListener != null) {
-                    onPlayerListener.onTick(index);
-                    if (isLastIndex(playCount, index)) onPlayerListener.onFinish(index);
+                    onPlayerListener.onTick(playIndex);
+                    if (isLastIndex(totalPlayCount, playIndex)) {
+                        onPlayerListener.onFinish(playIndex);
+                        playingStatus = PlayingStatus.STOP;
+                    }
                 }
             }
         };
-        timer.start();
+        countDownTimer.start();
+    }
+    void pause() {
+        playingStatus = PlayingStatus.PAUSE;
+        countDownTimer.cancel();
+        remainingPlayCount = totalPlayCount - (playIndex + 1);
     }
 
     private boolean isLastIndex(int size, int index) {
@@ -36,5 +56,8 @@ class MemoryPowerPlayer {
         void onTick(int index);
 
         void onFinish(int index);
+
+        void play();
+        void stop();
     }
 }

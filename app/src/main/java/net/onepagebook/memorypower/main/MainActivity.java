@@ -8,17 +8,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import net.onepagebook.memorypower.R;
-import net.onepagebook.memorypower.common.BaseActivity;
+import net.onepagebook.memorypower.common.AbsBaseActivity;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements MainPresenter.View, NavigationView
+public class MainActivity extends AbsBaseActivity implements MainPresenter.View, NavigationView
         .OnNavigationItemSelectedListener {
 
     @BindView(R.id.subject_textview)
@@ -78,6 +79,21 @@ public class MainActivity extends BaseActivity implements MainPresenter.View, Na
         toggle.syncState();
 
         mNavigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @BindView(R.id.play_pause_button)
+    ImageButton mPlayPauseButton;
+    @BindView(R.id.stop_button)
+    ImageButton mStopButton;
+
+    @Override
+    public void setPauseIcon(int iconRes) {
+        mPlayPauseButton.setImageResource(iconRes);
+    }
+
+    @Override
+    public void setStopIcon(int iconRes) {
+        mStopButton.setImageResource(iconRes);
     }
 
     @OnClick({R.id.play_pause_button, R.id.stop_button, R.id.memory_button})

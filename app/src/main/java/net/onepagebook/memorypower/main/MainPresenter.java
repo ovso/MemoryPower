@@ -11,5 +11,9 @@ public interface MainPresenter extends Presenter {
         void setContent(String content);
 
         void addListener();
+
+        void setPauseIcon(int iconRes);
+
+        void setStopIcon(int iconRes);
     }
 }

@@ -32,6 +32,16 @@ public class MainPresenterImpl implements MainPresenter {
             public void onFinish(int index) {
                 Log.d("onFinish(" + index + ")");
             }
+
+            @Override
+            public void play() {
+                mView.setPauseIcon(R.drawable.ic_pause);
+            }
+
+            @Override
+            public void stop() {
+                mView.setStopIcon(R.drawable.ic_stop);
+            }
         };
     }
 
@@ -59,11 +69,16 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onClickPlayControl(int id) {
+        PlayingStatus status = mPlayer.getPlayingStatus();
         switch (id) {
             case R.id.play_pause_button:
-                mPlayer.setDisplayInterval(500);
-                mPlayer.setPlayCount(mDatabase.getCount());
-                mPlayer.play();
+                if(status == PlayingStatus.STOP || status == PlayingStatus.PAUSE) {
+                    mPlayer.setDisplayInterval(500);
+                    mPlayer.setTotalPlayCount(mDatabase.getCount());
+                    mPlayer.play();
+                } else if(mPlayer.getPlayingStatus() == PlayingStatus.PLAYING) {
+                    mPlayer.pause();
+                }
                 break;
             case R.id.stop_button:
                 break;

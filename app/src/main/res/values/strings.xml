@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">MemoryPower</string>
-    <string name="file_open">Open</string>
+    <string name="file_open">열기</string>
     <string name="start">시작</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">설정</string>
+    <string name="add_item">항목 추가</string>
+    <string name="create_file">파일 생성</string>
+    <string name="share">공유</string>
 </resources>

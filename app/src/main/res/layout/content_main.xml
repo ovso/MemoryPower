@@ -11,22 +11,41 @@
                                              tools:layout_editor_absoluteY="25dp">
 
 
-    <Button
-        android:id="@id/start_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/stop_button"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/start"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/play_pause_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/ic_stop"/>
+
+    <ImageButton
+        android:id="@+id/play_pause_button"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginBottom="9dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/ic_play"/>
 
     <TextView
         android:id="@id/subject_textview"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="127dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -36,11 +55,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="제목"/>
+        tools:text="제목"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"/>
 
     <TextView
         android:id="@id/content_textview"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="201dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -50,20 +71,37 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subject_textview"
-        tools:text="핵심내용"/>
+        tools:text="핵심내용"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"/>
 
     <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
         android:id="@id/speed_seekbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         app:dsb_max="50"
         app:dsb_min="0"
-        app:layout_constraintBottom_toTopOf="@+id/start_button"
+        app:layout_constraintBottom_toTopOf="@id/play_pause_button"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"/>
+
+    <ImageButton
+        android:id="@+id/memory_button"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/stop_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/ic_memory"/>
+
 
 </android.support.constraint.ConstraintLayout>

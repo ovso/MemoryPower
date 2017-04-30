@@ -1,5 +1,6 @@
 package net.onepagebook.memorypower.main;
 
+import net.onepagebook.memorypower.R;
 import net.onepagebook.memorypower.common.Log;
 
 public class MainPresenterImpl implements MainPresenter {
@@ -37,13 +38,37 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onCreate() {
+        mView.addListener();
+    }
+
+    @Override
+    public void onNavigationItemSelected(int itemId) {
+        // Handle navigation view item clicks here.
+        int id = itemId;
+        if (id == R.id.nav_open) {
+
+        } else if (id == R.id.nav_file_add) {
+            // Handle the camera action
+        } else if (id == R.id.nav_file_add) {
+
+        } else if (id == R.id.nav_share) {
+
+        }
 
     }
 
     @Override
-    public void onClickStartButton() {
-        mPlayer.setDisplayInterval(500);
-        mPlayer.setPlayCount(mDatabase.getCount());
-        mPlayer.play();
+    public void onClickPlayControl(int id) {
+        switch (id) {
+            case R.id.play_pause_button:
+                mPlayer.setDisplayInterval(500);
+                mPlayer.setPlayCount(mDatabase.getCount());
+                mPlayer.play();
+                break;
+            case R.id.stop_button:
+                break;
+            case R.id.memory_button:
+                break;
+        }
     }
 }

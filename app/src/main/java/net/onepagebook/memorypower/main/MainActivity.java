@@ -36,6 +36,7 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     ImageButton mPlayPauseButton;
     @BindView(R.id.stop_button)
     ImageButton mStopButton;
+
     private MainPresenter mPresenter;
 
     @Override
@@ -85,30 +86,16 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
 
         mNavigationView.setNavigationItemSelectedListener(this);
 
-        mSpeedSeekbar.setOnProgressChangeListener(mOnSpeedSeekbarProgressChangeListener());
+        mSpeedSeekbar.setOnProgressChangeListener(mOnSimpleProgressChangeListener());
     }
 
-    private DiscreteSeekBar.OnProgressChangeListener mOnSpeedSeekbarProgressChangeListener() {
-        return new
-                DiscreteSeekBar.OnProgressChangeListener() {
-
-
-                    @Override
-                    public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean
-                            fromUser) {
-
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
-
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
-                        mPresenter.onStopTrackingTouch(seekBar.getProgress());
-                    }
-                };
+    private DiscreteSeekBar.OnProgressChangeListener mOnSimpleProgressChangeListener() {
+        return new OnSimpleProgressChangeListener() {
+            @Override
+            void onStopTrackingTouch(int progress) {
+                mPresenter.onStopTrackingTouch(progress);
+            }
+        };
     }
 
     @Override
@@ -125,6 +112,4 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     void onClickPlayControl(View v) {
         mPresenter.onClickPlayControl(v.getId());
     }
-
-
 }

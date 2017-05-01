@@ -29,7 +29,7 @@ class MemoryPowerPlayer {
             onPlayerListener.onPlay();
         }
         playingStatus = PlayingStatus.PLAYING;
-        countDownTimer = new SimpleCountDownTimer(playCount, displayInterval) {
+        SimpleCountDownTimer timer = new SimpleCountDownTimer(playCount, displayInterval) {
             @Override
             public void onTick(int index) {
                 Log.d("onTick = " + index);
@@ -44,8 +44,8 @@ class MemoryPowerPlayer {
                 stop();
             }
         };
-        countDownTimer.setIndex(currentIndex);
-        countDownTimer.start();
+        timer.setIndex(currentIndex);
+        countDownTimer = timer.start();
     }
 
     void pause() {

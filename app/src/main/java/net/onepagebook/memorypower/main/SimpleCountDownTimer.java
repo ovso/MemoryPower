@@ -39,9 +39,10 @@ public abstract class SimpleCountDownTimer {
         this.countDownInterval = countDownInterval;
     }
 
-    public synchronized final void start() {
+    public synchronized final SimpleCountDownTimer start() {
         mCancelled = false;
         mHandler.sendMessage(mHandler.obtainMessage(MSG));
+        return this;
     }
 
     public synchronized final void cancel() {

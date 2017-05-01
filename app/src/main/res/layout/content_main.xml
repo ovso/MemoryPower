@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        app:dsb_max="50"
+        app:dsb_max="10"
         app:dsb_min="0"
         app:layout_constraintBottom_toTopOf="@id/play_pause_button"
         app:layout_constraintHorizontal_bias="0.495"

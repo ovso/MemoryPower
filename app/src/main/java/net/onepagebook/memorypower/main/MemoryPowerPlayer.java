@@ -1,5 +1,7 @@
 package net.onepagebook.memorypower.main;
 
+import net.onepagebook.memorypower.common.Log;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,55 +11,67 @@ class MemoryPowerPlayer {
     @Setter
     private OnPlayerListener onPlayerListener;
     @Setter
-    private int totalPlayCount;
-    @Setter
-    private int remainingPlayCount;
+    private int playCount;
     @Setter
     private int displayInterval;
 
     private SimpleCountDownTimer countDownTimer;
-    private int playIndex;
+
     MemoryPowerPlayer() {
         playingStatus = PlayingStatus.STOP;
     }
 
+    private int currentIndex = 0;
     void play() {
-        onPlayerListener.play();
+        if(playingStatus == PlayingStatus.PAUSE) {
+            onPlayerListener.onResume();
+        } else {
+            onPlayerListener.onPlay();
+        }
         playingStatus = PlayingStatus.PLAYING;
-        int millisInFuture = (totalPlayCount * (displayInterval)) + displayInterval;
-
-        countDownTimer = new SimpleCountDownTimer(millisInFuture, displayInterval) {
+        countDownTimer = new SimpleCountDownTimer(playCount, displayInterval) {
+            @Override
+            public void onTick(int index) {
+                Log.d("onTick = " + index);
+                currentIndex = index;
+                onPlayerListener.onTick(index);
+            }
 
             @Override
-            public void onTick(long millisUntilFinished) {
-                playIndex = (int) ((millisInFuture - millisUntilFinished) / displayInterval);
-                if (onPlayerListener != null) {
-                    onPlayerListener.onTick(playIndex);
-                    if (isLastIndex(totalPlayCount, playIndex)) {
-                        onPlayerListener.onFinish(playIndex);
-                        playingStatus = PlayingStatus.STOP;
-                    }
-                }
+            public void onFinished() {
+                Log.d("onFinished()");
+                onPlayerListener.onFinished();
+                stop();
             }
         };
+        countDownTimer.setIndex(currentIndex);
         countDownTimer.start();
     }
+
     void pause() {
         playingStatus = PlayingStatus.PAUSE;
         countDownTimer.cancel();
-        remainingPlayCount = totalPlayCount - (playIndex + 1);
+        onPlayerListener.onPause();
     }
 
-    private boolean isLastIndex(int size, int index) {
-        return (size - 1) == index;
+    void stop() {
+        playingStatus = PlayingStatus.STOP;
+        currentIndex = 0;
+        countDownTimer.cancel();
+        onPlayerListener.onStop();
     }
 
-    public interface OnPlayerListener {
+    interface OnPlayerListener {
         void onTick(int index);
 
-        void onFinish(int index);
+        void onPlay();
 
-        void play();
-        void stop();
+        void onStop();
+
+        void onResume();
+
+        void onPause();
+
+        void onFinished();
     }
 }

@@ -4,13 +4,9 @@ import java.util.ArrayList;
 
 import lombok.Data;
 
-/**
- * Created by ovso on 2017. 4. 30..
- */
-
 public class MainDatabase {
 
-    private ArrayList<MainDatabase.SampleMainPointNote> mSampleMainPointNoteList = new 
+    private ArrayList<MainDatabase.SampleMainPointNote> mSampleMainPointNoteList = new
             ArrayList<>();
 
     MainDatabase() {
@@ -22,6 +18,9 @@ public class MainDatabase {
     }
 
     public MainDatabase.SampleMainPointNote getItem(int index) {
+        if (index >= getCount()) {
+            return null;
+        }
         return mSampleMainPointNoteList.size() == 0 ? null : mSampleMainPointNoteList.get(index);
     }
 
@@ -52,6 +51,7 @@ public class MainDatabase {
         note.content = "사건을 만들어 나가는 등장 인물의 성격이나 유형";
         mSampleMainPointNoteList.add(note);
 
+/*
         note = new MainDatabase.SampleMainPointNote();
         note.subject = "사건";
         note.content = "등장 인물들 사이의 관계에 따라 일어나는 여러 종류의 일들";
@@ -106,6 +106,7 @@ public class MainDatabase {
         note.subject = "국가의 요소";
         note.content = "주권, 영토, 국민";
         mSampleMainPointNoteList.add(note);
+*/
     }
 
     @Data

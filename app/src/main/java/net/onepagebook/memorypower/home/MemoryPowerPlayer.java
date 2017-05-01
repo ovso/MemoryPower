@@ -1,7 +1,5 @@
 package net.onepagebook.memorypower.home;
 
-import net.onepagebook.memorypower.main.SimpleCountDownTimer;
-
 import lombok.Setter;
 
 class MemoryPowerPlayer {
@@ -16,6 +14,7 @@ class MemoryPowerPlayer {
     void play() {
         int millisInFuture = (playCount * (displayInterval)) + displayInterval;
 
+/*
         SimpleCountDownTimer timer = new SimpleCountDownTimer(millisInFuture, displayInterval) {
 
             @Override
@@ -28,6 +27,7 @@ class MemoryPowerPlayer {
             }
         };
         timer.start();
+*/
     }
 
     private boolean isLastIndex(int size, int index) {

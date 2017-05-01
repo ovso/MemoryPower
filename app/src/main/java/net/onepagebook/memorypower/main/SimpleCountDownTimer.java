@@ -1,27 +1,55 @@
 package net.onepagebook.memorypower.main;
 
-import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 
-public class SimpleCountDownTimer extends CountDownTimer {
-    /**
-     * @param millisInFuture    The number of millis in the future from the call
-     *                          to {@link #start()} until the countdown is done and
-     *                          {@link #onFinish()}
-     *                          is called.
-     * @param countDownInterval The interval along the way to receive
-     *                          {@link #onTick(long)} callbacks.
-     */
-    public SimpleCountDownTimer(long millisInFuture, long countDownInterval) {
-        super(millisInFuture, countDownInterval);
+import lombok.Setter;
+
+public abstract class SimpleCountDownTimer {
+
+    private final static int MSG = 1;
+    private int countDown;
+    private long countDownInterval;
+    private boolean mCancelled = false;
+    @Setter
+    private int index = 0;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            synchronized (SimpleCountDownTimer.this) {
+                if (mCancelled) {
+                    return;
+                }
+                if ((countDown - 1) >= index) {
+                    onTick(index);
+                } else if (countDown == index) {
+                    onFinished();
+                    cancel();
+                }
+
+                index++;
+
+                sendMessageDelayed(Message.obtain(), countDownInterval);
+            }
+        }
+    };
+
+    public SimpleCountDownTimer(int countDown, long countDownInterval) {
+        this.countDown = countDown;
+        this.countDownInterval = countDownInterval;
     }
 
-    @Override
-    public void onTick(long millisUntilFinished) {
+    public synchronized final void start() {
+        mCancelled = false;
+        mHandler.sendMessage(mHandler.obtainMessage(MSG));
     }
 
-    @Override
-    public void onFinish() {
+    public synchronized final void cancel() {
+        mCancelled = true;
+        mHandler.removeMessages(MSG);
     }
 
+    public abstract void onTick(int index);
 
+    public abstract void onFinished();
 }

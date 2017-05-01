@@ -81,20 +81,15 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
         mNavigationView.setNavigationItemSelectedListener(this);
     }
 
+    @Override
+    public void setPlayPauseIcon(int iconRes) {
+        mPlayPauseButton.setImageResource(iconRes);
+    }
+
     @BindView(R.id.play_pause_button)
     ImageButton mPlayPauseButton;
     @BindView(R.id.stop_button)
     ImageButton mStopButton;
-
-    @Override
-    public void setPauseIcon(int iconRes) {
-        mPlayPauseButton.setImageResource(iconRes);
-    }
-
-    @Override
-    public void setStopIcon(int iconRes) {
-        mStopButton.setImageResource(iconRes);
-    }
 
     @OnClick({R.id.play_pause_button, R.id.stop_button, R.id.memory_button})
     void onClickPlayControl(View v) {

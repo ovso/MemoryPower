@@ -40,21 +40,25 @@ class MainPresenterImpl implements MainPresenter {
             @Override
             public void onPlay() {
                 mView.setPlayPauseIcon(R.drawable.ic_pause);
+                mView.setSeekbarEnable(false);
             }
 
             @Override
             public void onStop() {
                 setEmpty();
+                mView.setSeekbarEnable(true);
             }
 
             @Override
             public void onResume() {
                 mView.setPlayPauseIcon(R.drawable.ic_pause);
+                mView.setSeekbarEnable(false);
             }
 
             @Override
             public void onPause() {
                 mView.setPlayPauseIcon(R.drawable.ic_play);
+                mView.setSeekbarEnable(true);
             }
         };
     }
@@ -85,7 +89,6 @@ class MainPresenterImpl implements MainPresenter {
         switch (id) {
             case R.id.play_pause_button:
                 if (status == PlayingStatus.STOP || status == PlayingStatus.PAUSE) {
-                    mPlayer.setDisplayInterval(1000);
                     mPlayer.setPlayCount(mDatabase.getCount());
                     mPlayer.play();
                 } else if (mPlayer.getPlayingStatus() == PlayingStatus.PLAYING) {
@@ -99,5 +102,10 @@ class MainPresenterImpl implements MainPresenter {
             case R.id.memory_button:
                 break;
         }
+    }
+
+    @Override
+    public void onStopTrackingTouch(int progress) {
+        mPlayer.setDisplayInterval(progress*1000);
     }
 }

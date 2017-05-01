@@ -32,6 +32,10 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     DrawerLayout mDrawer;
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
+    @BindView(R.id.play_pause_button)
+    ImageButton mPlayPauseButton;
+    @BindView(R.id.stop_button)
+    ImageButton mStopButton;
     private MainPresenter mPresenter;
 
     @Override
@@ -70,6 +74,7 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
         mContentTextView.setText(content);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void addListener() {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -79,6 +84,31 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
         toggle.syncState();
 
         mNavigationView.setNavigationItemSelectedListener(this);
+
+        mSpeedSeekbar.setOnProgressChangeListener(mOnSpeedSeekbarProgressChangeListener());
+    }
+
+    private DiscreteSeekBar.OnProgressChangeListener mOnSpeedSeekbarProgressChangeListener() {
+        return new
+                DiscreteSeekBar.OnProgressChangeListener() {
+
+
+                    @Override
+                    public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean
+                            fromUser) {
+
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+                        mPresenter.onStopTrackingTouch(seekBar.getProgress());
+                    }
+                };
     }
 
     @Override
@@ -86,14 +116,15 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
         mPlayPauseButton.setImageResource(iconRes);
     }
 
-    @BindView(R.id.play_pause_button)
-    ImageButton mPlayPauseButton;
-    @BindView(R.id.stop_button)
-    ImageButton mStopButton;
+    @Override
+    public void setSeekbarEnable(boolean enable) {
+        mSpeedSeekbar.setEnabled(enable);
+    }
 
     @OnClick({R.id.play_pause_button, R.id.stop_button, R.id.memory_button})
     void onClickPlayControl(View v) {
         mPresenter.onClickPlayControl(v.getId());
     }
+
 
 }

@@ -11,10 +11,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-/**
- * Created by ovso on 2017. 4. 30..
- */
-
 public abstract class AbsBaseActivity extends AppCompatActivity {
     private Unbinder mUnbinder;
     @BindView(R.id.toolbar)

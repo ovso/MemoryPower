@@ -6,6 +6,8 @@ public interface MainPresenter extends Presenter {
 
     void onClickPlayControl(int id);
 
+    void onStopTrackingTouch(int progress);
+
     interface View extends Presenter.View {
         void setSubject(String subject);
         void setContent(String content);
@@ -13,5 +15,7 @@ public interface MainPresenter extends Presenter {
         void addListener();
 
         void setPlayPauseIcon(int iconRes);
+
+        void setSeekbarEnable(boolean enable);
     }
 }

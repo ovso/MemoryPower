@@ -2,6 +2,7 @@ package net.onepagebook.memorypower.main;
 
 import java.util.ArrayList;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 public class MainDatabase {
@@ -113,6 +114,16 @@ public class MainDatabase {
     public final static class SampleMainPointNote {
         private String subject;
         private String content;
+        private boolean memory;
+    }
+    @AllArgsConstructor
+    @Data
+    public final static class KeyPointItem {
+        private String subject;
+        private String content;
+        private boolean memory;
+        private long id;
+        private String fileName;
     }
 
 }

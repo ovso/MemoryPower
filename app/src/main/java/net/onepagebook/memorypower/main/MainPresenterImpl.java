@@ -1,6 +1,8 @@
 package net.onepagebook.memorypower.main;
 
 import net.onepagebook.memorypower.R;
+import net.onepagebook.memorypower.db.KeyPoint;
+import net.onepagebook.memorypower.db.KeyPointNote;
 
 class MainPresenterImpl implements MainPresenter {
 
@@ -21,9 +23,10 @@ class MainPresenterImpl implements MainPresenter {
 
             @Override
             public void onTick(int index) {
-                MainDatabase.SampleMainPointNote note = mDatabase.getItem(index);
-                mView.setSubject(note.getSubject());
-                mView.setContent(note.getContent());
+                KeyPointNote note = mDatabase.getKeyPointNote();
+                KeyPoint point = note.getKeyPoints().get(index);
+                mView.setSubject(point.getSubject());
+                mView.setContent(point.getContent());
             }
 
             @Override
@@ -89,7 +92,7 @@ class MainPresenterImpl implements MainPresenter {
         switch (id) {
             case R.id.play_pause_button:
                 if (status == PlayingStatus.STOP || status == PlayingStatus.PAUSE) {
-                    mPlayer.setPlayCount(mDatabase.getCount());
+                    mPlayer.setPlayCount(mDatabase.getNoteCount());
                     mPlayer.play();
                 } else if (mPlayer.getPlayingStatus() == PlayingStatus.PLAYING) {
                     mPlayer.pause();

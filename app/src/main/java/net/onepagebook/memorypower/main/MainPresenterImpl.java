@@ -79,7 +79,8 @@ class MainPresenterImpl implements MainPresenter {
                 break;
             case R.id.nav_item_add:
                 break;
-            case R.id.nav_file_add:
+            case R.id.nav_file_create:
+                mView.navigateToCreateFile();
                 break;
             case R.id.nav_share:
                 break;

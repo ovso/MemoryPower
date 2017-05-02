@@ -17,5 +17,7 @@ public interface MainPresenter extends Presenter {
         void setPlayPauseIcon(int iconRes);
 
         void setSeekbarEnable(boolean enable);
+
+        void navigateToCreateFile();
     }
 }

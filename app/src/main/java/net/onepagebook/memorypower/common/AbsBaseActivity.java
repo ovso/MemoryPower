@@ -23,6 +23,11 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
         mUnbinder = ButterKnife.bind(this);
         mToolbar.setTitle(getToolbarTitle());
         setSupportActionBar(mToolbar);
+        setDisplayHomeAsUpEnabled();
+    }
+
+    protected void setDisplayHomeAsUpEnabled() {
+        // Do something...
     }
 
     protected abstract int getLayoutRes();

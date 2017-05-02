@@ -1,5 +1,6 @@
 package net.onepagebook.memorypower.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import net.onepagebook.memorypower.R;
 import net.onepagebook.memorypower.common.AbsBaseActivity;
+import net.onepagebook.memorypower.create.CreateFileActivity;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
@@ -106,6 +108,13 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     @Override
     public void setSeekbarEnable(boolean enable) {
         mSpeedSeekbar.setEnabled(enable);
+    }
+
+    @Override
+    public void navigateToCreateFile() {
+        Intent intent = new Intent(this, CreateFileActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
     }
 
     @OnClick({R.id.play_pause_button, R.id.stop_button, R.id.memory_button})

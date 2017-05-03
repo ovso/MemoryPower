@@ -15,7 +15,7 @@ public class CreateFileActivity extends AbsBaseActivity {
     protected String getToolbarTitle() {
         return "파일생성";
     }
-    
+
     @Override
     protected void setDisplayHomeAsUpEnabled() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

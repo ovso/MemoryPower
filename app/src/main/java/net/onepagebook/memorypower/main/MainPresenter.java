@@ -19,5 +19,7 @@ public interface MainPresenter extends Presenter {
         void setSeekbarEnable(boolean enable);
 
         void navigateToCreateFile();
+
+        void showCreateFileDialog();
     }
 }

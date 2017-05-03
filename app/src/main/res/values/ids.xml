@@ -7,4 +7,6 @@
     <item name="play_button" type="id"/>
     <item name="toolbar" type="id"/>
     <item name="fab" type="id"/>
+    <item name="input_edittext" type="id"/>
+    <item name="textinputlayout" type="id"/>
 </resources>

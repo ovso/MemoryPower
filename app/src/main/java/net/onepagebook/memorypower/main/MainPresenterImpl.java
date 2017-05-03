@@ -1,5 +1,7 @@
 package net.onepagebook.memorypower.main;
 
+import android.text.TextUtils;
+
 import net.onepagebook.memorypower.R;
 import net.onepagebook.memorypower.db.KeyPoint;
 import net.onepagebook.memorypower.db.KeyPointNote;
@@ -80,7 +82,8 @@ class MainPresenterImpl implements MainPresenter {
             case R.id.nav_item_add:
                 break;
             case R.id.nav_file_create:
-                mView.navigateToCreateFile();
+                //mView.navigateToCreateFile();
+                mView.showCreateFileDialog();
                 break;
             case R.id.nav_share:
                 break;

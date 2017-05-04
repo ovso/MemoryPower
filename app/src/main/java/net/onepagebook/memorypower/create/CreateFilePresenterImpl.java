@@ -4,11 +4,7 @@ import android.text.TextUtils;
 
 import net.onepagebook.memorypower.R;
 
-/**
- * Created by ovso on 2017. 5. 4..
- */
-
-public class CreateFilePresenterImpl implements CreateFilePresenter {
+class CreateFilePresenterImpl implements CreateFilePresenter {
 
     private CreateFilePresenter.View mView;
     private CreateFileDatabase mDatabase;

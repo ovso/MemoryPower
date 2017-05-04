@@ -1,15 +1,14 @@
 package net.onepagebook.memorypower.db;
 
-import java.util.List;
-
+import io.realm.RealmList;
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import lombok.Data;
 
 @Data
-public class KeyPointNote{
+public class KeyPointNote extends RealmObject {
     @PrimaryKey
-    private long id;
+    private String id;
     private String name;
-    private List<KeyPoint> keyPoints;
-
+    private RealmList<KeyPoint> keyPoints;
 }

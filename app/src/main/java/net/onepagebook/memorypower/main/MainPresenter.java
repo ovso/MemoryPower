@@ -1,6 +1,6 @@
 package net.onepagebook.memorypower.main;
 
-public interface MainPresenter extends Presenter {
+interface MainPresenter extends Presenter {
 
     void onNavigationItemSelected(int itemId);
 
@@ -18,7 +18,7 @@ public interface MainPresenter extends Presenter {
 
         void setSeekbarEnable(boolean enable);
 
-        void navigateToCreateFile();
+        //void navigateToCreateFile();
 
         void showCreateFileDialog();
     }

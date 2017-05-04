@@ -1,10 +1,6 @@
 package net.onepagebook.memorypower.main;
 
-import android.text.TextUtils;
-
 import net.onepagebook.memorypower.R;
-import net.onepagebook.memorypower.db.KeyPoint;
-import net.onepagebook.memorypower.db.KeyPointNote;
 
 class MainPresenterImpl implements MainPresenter {
 
@@ -25,10 +21,12 @@ class MainPresenterImpl implements MainPresenter {
 
             @Override
             public void onTick(int index) {
+/*
                 KeyPointNote note = mDatabase.getKeyPointNote();
                 KeyPoint point = note.getKeyPoints().get(index);
                 mView.setSubject(point.getSubject());
                 mView.setContent(point.getContent());
+*/
             }
 
             @Override
@@ -95,12 +93,14 @@ class MainPresenterImpl implements MainPresenter {
         PlayingStatus status = mPlayer.getPlayingStatus();
         switch (id) {
             case R.id.play_pause_button:
+/*
                 if (status == PlayingStatus.STOP || status == PlayingStatus.PAUSE) {
                     mPlayer.setPlayCount(mDatabase.getNoteCount());
                     mPlayer.play();
                 } else if (mPlayer.getPlayingStatus() == PlayingStatus.PLAYING) {
                     mPlayer.pause();
                 }
+*/
                 break;
             case R.id.stop_button:
                 mView.setPlayPauseIcon(R.drawable.ic_play);
@@ -113,6 +113,7 @@ class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onStopTrackingTouch(int progress) {
-        mPlayer.setDisplayInterval(progress*1000);
+        mPlayer.setDisplayInterval(progress * 1000);
     }
+
 }

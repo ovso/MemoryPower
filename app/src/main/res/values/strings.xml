@@ -10,4 +10,5 @@
     <string name="share">공유</string>
     <string name="please_enter_file_name">파일명을 입력해 주세요.</string>
     <string name="error_empty">입력되지 않았습니다</string>
+    <string name="error_file_name_exist">동일한 파일명이 존재합니다</string>
 </resources>

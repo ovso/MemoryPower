@@ -85,14 +85,6 @@ public class CreateFileDialogBuilder extends AlertDialog.Builder implements Crea
         inputEditText.setText("");
     }
 
-    public void setHint(@StringRes int resId) {
-        inputEditText.setHint(resId);
-    }
-
-    private String getInputText() {
-        return inputEditText.getText().toString().trim();
-    }
-
     @Override
     public AlertDialog create() {
         alertDialog = super.create();

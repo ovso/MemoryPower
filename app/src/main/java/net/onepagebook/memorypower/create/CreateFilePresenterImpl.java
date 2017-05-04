@@ -36,7 +36,7 @@ public class CreateFilePresenterImpl implements CreateFilePresenter {
                 mView.setToolbarName(fileName);
                 mView.dismiss();
             } else {
-
+                mView.setInputError(R.string.error_file_name_exist);
             }
         }
     }

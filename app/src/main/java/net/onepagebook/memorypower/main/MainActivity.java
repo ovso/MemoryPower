@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import net.onepagebook.memorypower.R;
+import net.onepagebook.memorypower.add.ItemAddDialogBuilder;
 import net.onepagebook.memorypower.common.AbsBaseActivity;
 import net.onepagebook.memorypower.create.CreateFileDialogBuilder;
 
@@ -118,6 +119,13 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     public void showCreateFileDialog() {
         CreateFileDialogBuilder builder = new CreateFileDialogBuilder(this);
         builder.setOnDialogListener(id -> mPresenter.onCreateFileSuccess(id));
+        builder.create();
+        builder.showAlertDialog();
+    }
+
+    @Override
+    public void showItemAddDialog(String noteId) {
+        ItemAddDialogBuilder builder = new ItemAddDialogBuilder(this);
         builder.create();
         builder.showAlertDialog();
     }

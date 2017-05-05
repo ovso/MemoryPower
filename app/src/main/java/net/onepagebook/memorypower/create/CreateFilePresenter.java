@@ -1,29 +1,15 @@
 package net.onepagebook.memorypower.create;
 
-import android.support.annotation.StringRes;
+import net.onepagebook.memorypower.common.InputDialogPresenter;
 
-public interface CreateFilePresenter {
-
-    void init();
+public interface CreateFilePresenter extends InputDialogPresenter {
 
     void onClickOk(String fileName);
 
-    interface View {
+    interface View extends InputDialogPresenter.View {
 
-        void setContentView();
-
-        void setInputFilter();
-
-        void addListener();
-
-        void setHint();
-
-        void setTitle();
-
-        void setInputError(@StringRes int resId);
-
-        void dismiss();
 
         void setId(String noteId);
+
     }
 }

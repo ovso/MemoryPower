@@ -18,7 +18,6 @@ class CreateFilePresenterImpl implements CreateFilePresenter {
         mView.setContentView();
         mView.setInputFilter();
         mView.addListener();
-        mView.setHint();
         mView.setTitle();
     }
 

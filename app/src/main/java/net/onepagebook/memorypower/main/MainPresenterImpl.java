@@ -78,6 +78,7 @@ class MainPresenterImpl implements MainPresenter {
             case R.id.nav_open:
                 break;
             case R.id.nav_item_add:
+                mView.showItemAddDialog(mDatabase.getNoteId());
                 break;
             case R.id.nav_file_create:
                 //mView.navigateToCreateFile();

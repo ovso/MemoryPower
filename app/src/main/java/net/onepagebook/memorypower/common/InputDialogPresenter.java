@@ -1,8 +1,22 @@
 package net.onepagebook.memorypower.common;
 
-/**
- * Created by ovso on 2017. 5. 6..
- */
+import android.support.annotation.StringRes;
 
 public interface InputDialogPresenter {
+    void init();
+
+    interface View {
+        void setContentView();
+
+        void setInputFilter();
+
+        void addListener();
+
+        void setTitle();
+
+        void setInputError(@StringRes int resId);
+
+        void dismiss();
+
+    }
 }

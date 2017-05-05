@@ -25,5 +25,7 @@ interface MainPresenter extends Presenter {
         void showCreateFileDialog();
 
         void setToolbarTitle(String fileName);
+
+        void showItemAddDialog(String noteId);
     }
 }

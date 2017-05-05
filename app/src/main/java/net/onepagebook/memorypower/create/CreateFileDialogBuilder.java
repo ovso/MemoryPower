@@ -64,11 +64,6 @@ public class CreateFileDialogBuilder extends AlertDialog.Builder implements Crea
     }
 
     @Override
-    public void setHint() {
-        inputEditText.setHint(R.string.please_enter_file_name);
-    }
-
-    @Override
     public void setTitle() {
         setTitle(R.string.create_file);
     }
@@ -95,9 +90,7 @@ public class CreateFileDialogBuilder extends AlertDialog.Builder implements Crea
     private DialogInterface.OnShowListener onShowListener() {
         return dialog -> {
             Button ok = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            ok.setOnClickListener(v -> {
-                mPresenter.onClickOk(inputEditText.getText().toString().trim());
-            });
+            ok.setOnClickListener(v -> mPresenter.onClickOk(inputEditText.getText().toString().trim()));
         };
     }
 

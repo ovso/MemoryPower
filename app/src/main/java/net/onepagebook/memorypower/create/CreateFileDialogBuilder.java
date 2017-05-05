@@ -102,9 +102,9 @@ public class CreateFileDialogBuilder extends AlertDialog.Builder implements Crea
     }
 
     @Override
-    public void setToolbarName(String fileName) {
+    public void setId(String id) {
         if (onDialogListener != null) {
-            onDialogListener.onSuccess(fileName);
+            onDialogListener.onSuccess(id);
         }
     }
 
@@ -118,6 +118,6 @@ public class CreateFileDialogBuilder extends AlertDialog.Builder implements Crea
     }
 
     public interface OnDialogListener {
-        void onSuccess(String fileName);
+        void onSuccess(String id);
     }
 }

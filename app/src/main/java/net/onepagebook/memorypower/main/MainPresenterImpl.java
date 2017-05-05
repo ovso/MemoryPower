@@ -116,4 +116,10 @@ class MainPresenterImpl implements MainPresenter {
         mPlayer.setDisplayInterval(progress * 1000);
     }
 
+    @Override
+    public void onCreateFileSuccess(String id) {
+        mDatabase.setNoteId(id);
+        mView.setToolbarTitle(mDatabase.getNoteName(id));
+    }
+
 }

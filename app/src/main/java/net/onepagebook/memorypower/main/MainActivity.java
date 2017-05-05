@@ -58,6 +58,11 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     }
 
     @Override
+    public void setToolbarTitle(String fileName) {
+        mToolbar.setTitle(fileName);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         mPresenter.onNavigationItemSelected(item.getItemId());
         mDrawer.closeDrawer(GravityCompat.START);
@@ -112,7 +117,7 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     @Override
     public void showCreateFileDialog() {
         CreateFileDialogBuilder builder = new CreateFileDialogBuilder(this);
-        builder.setOnDialogListener(fileName -> mToolbar.setTitle(fileName));
+        builder.setOnDialogListener(id -> mPresenter.onCreateFileSuccess(id));
         builder.create();
         builder.showAlertDialog();
     }

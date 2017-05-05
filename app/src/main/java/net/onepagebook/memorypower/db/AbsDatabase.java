@@ -21,7 +21,7 @@ public abstract class AbsDatabase {
     public boolean isExistFileName(String field, String value) {
         RealmResults<KeyPointNote> r = mRealm.where(KeyPointNote.class).equalTo(field, value)
                 .findAll();
-        return r.size() > 1;
+        return r.size() > 0;
     }
 
     public void createFile(String fileName) {
@@ -37,4 +37,15 @@ public abstract class AbsDatabase {
 
     }
 
+    public String getNoteId(String fileName) {
+        KeyPointNote note = mRealm.where(KeyPointNote.class).equalTo("name", fileName).findFirst();
+        return note.getId();
+
+    }
+
+
+    public String getNoteName(String id) {
+        KeyPointNote note = mRealm.where(KeyPointNote.class).equalTo("id", id).findFirst();
+        return note.getName();
+    }
 }

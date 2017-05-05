@@ -22,8 +22,8 @@ public interface CreateFilePresenter {
 
         void setInputError(@StringRes int resId);
 
-        void setToolbarName(String fileName);
-
         void dismiss();
+
+        void setId(String noteId);
     }
 }

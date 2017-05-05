@@ -8,6 +8,8 @@ interface MainPresenter extends Presenter {
 
     void onStopTrackingTouch(int progress);
 
+    void onCreateFileSuccess(String id);
+
     interface View extends Presenter.View {
         void setSubject(String subject);
         void setContent(String content);
@@ -21,5 +23,7 @@ interface MainPresenter extends Presenter {
         //void navigateToCreateFile();
 
         void showCreateFileDialog();
+
+        void setToolbarTitle(String fileName);
     }
 }

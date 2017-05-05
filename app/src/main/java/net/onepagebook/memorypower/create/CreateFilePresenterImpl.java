@@ -29,7 +29,7 @@ class CreateFilePresenterImpl implements CreateFilePresenter {
         } else {
             if (!mDatabase.isExistFileName("name", fileName)) {
                 mDatabase.createFile(fileName);
-                mView.setToolbarName(fileName);
+                mView.setId(mDatabase.getNoteId(fileName));
                 mView.dismiss();
             } else {
                 mView.setInputError(R.string.error_file_name_exist);

@@ -48,4 +48,5 @@ public abstract class AbsDatabase {
         KeyPointNote note = mRealm.where(KeyPointNote.class).equalTo("id", id).findFirst();
         return note.getName();
     }
+
 }

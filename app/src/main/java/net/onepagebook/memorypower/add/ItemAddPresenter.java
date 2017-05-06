@@ -1,5 +1,7 @@
 package net.onepagebook.memorypower.add;
 
+import android.support.annotation.StringRes;
+
 import net.onepagebook.memorypower.common.InputDialogPresenter;
 
 /**
@@ -9,7 +11,9 @@ import net.onepagebook.memorypower.common.InputDialogPresenter;
 public interface ItemAddPresenter extends InputDialogPresenter {
     void onClickOk(String subject, String content);
 
-    interface View extends InputDialogPresenter.View {
+    void setNoteId(String noteId);
 
+    interface View extends InputDialogPresenter.View {
+        void setInputError2(@StringRes int resId);
     }
 }

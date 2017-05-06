@@ -78,7 +78,7 @@ class MainPresenterImpl implements MainPresenter {
             case R.id.nav_open:
                 break;
             case R.id.nav_item_add:
-                mView.showItemAddDialog(mDatabase.getNoteId());
+                mView.showItemAddDialog(mDatabase.getNowNoteId());
                 break;
             case R.id.nav_file_create:
                 //mView.navigateToCreateFile();
@@ -119,7 +119,7 @@ class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onCreateFileSuccess(String id) {
-        mDatabase.setNoteId(id);
+        mDatabase.setNowNoteId(id);
         mView.setToolbarTitle(mDatabase.getNoteName(id));
     }
 

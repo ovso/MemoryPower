@@ -22,6 +22,10 @@ public class ItemAddDialogBuilder extends AlertDialog.Builder implements ItemAdd
     TextInputLayout textInputLayout;
     @BindView(R.id.input_edittext)
     EditText inputEditText;
+    @BindView(R.id.textinputlayout2)
+    TextInputLayout textInputLayout2;
+    @BindView(R.id.input_edittext2)
+    EditText inputEditText2;
     @Getter
     AlertDialog alertDialog;
     private ItemAddPresenter mPresenter;
@@ -66,6 +70,12 @@ public class ItemAddDialogBuilder extends AlertDialog.Builder implements ItemAdd
     }
 
     @Override
+    public void setInputError2(@StringRes int resId) {
+        textInputLayout2.setError(getContext().getString(resId));
+        inputEditText2.setText("");
+    }
+
+    @Override
     public void dismiss() {
         alertDialog.dismiss();
     }
@@ -84,7 +94,14 @@ public class ItemAddDialogBuilder extends AlertDialog.Builder implements ItemAdd
     private DialogInterface.OnShowListener onShowListener() {
         return dialog -> {
             Button ok = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            ok.setOnClickListener(v -> mPresenter.onClickOk(null, null));
+            ok.setOnClickListener(v -> mPresenter.onClickOk(
+                    inputEditText.getText().toString().trim(),
+                    inputEditText2.getText().toString().trim()));
         };
     }
+
+    public void setNoteId(String noteId) {
+        mPresenter.setNoteId(noteId);
+    }
+
 }

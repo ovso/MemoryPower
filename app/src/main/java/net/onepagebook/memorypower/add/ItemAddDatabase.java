@@ -7,10 +7,6 @@ import net.onepagebook.memorypower.db.KeyPointNote;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Created by ovso on 2017. 5. 6..
- */
-
 public class ItemAddDatabase extends AbsDatabase {
     @Setter
     @Getter

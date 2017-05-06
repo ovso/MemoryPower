@@ -1,5 +1,7 @@
 package net.onepagebook.memorypower.main;
 
+import android.support.annotation.StringRes;
+
 interface MainPresenter extends Presenter {
 
     void onNavigationItemSelected(int itemId);
@@ -27,5 +29,7 @@ interface MainPresenter extends Presenter {
         void setToolbarTitle(String fileName);
 
         void showItemAddDialog(String noteId);
+
+        void showNoticeDialog(@StringRes int resId);
     }
 }

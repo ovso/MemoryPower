@@ -2,10 +2,12 @@ package net.onepagebook.memorypower.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -129,6 +131,18 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
         builder.setNoteId(noteId);
         builder.create();
         builder.showAlertDialog();
+    }
+
+    @Override
+    public void showNoticeDialog(@StringRes int resId) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setMessage(resId)
+                .setPositiveButton(android.R.string.ok, null)
+                .create();
+        dialog.setIcon(R.drawable.ic_warning);
+        dialog.setTitle(" ");
+        dialog.show();
+
     }
 
     @OnClick({R.id.play_pause_button, R.id.stop_button, R.id.memory_button})

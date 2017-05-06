@@ -1,5 +1,7 @@
 package net.onepagebook.memorypower.main;
 
+import android.text.TextUtils;
+
 import net.onepagebook.memorypower.R;
 
 class MainPresenterImpl implements MainPresenter {
@@ -78,7 +80,12 @@ class MainPresenterImpl implements MainPresenter {
             case R.id.nav_open:
                 break;
             case R.id.nav_item_add:
-                mView.showItemAddDialog(mDatabase.getNowNoteId());
+                String nowNoteId = mDatabase.getNowNoteId();
+                if (!TextUtils.isEmpty(nowNoteId)) {
+                    mView.showItemAddDialog(mDatabase.getNowNoteId());
+                } else {
+                    mView.showNoticeDialog(R.string.notice_open_or_create);
+                }
                 break;
             case R.id.nav_file_create:
                 //mView.navigateToCreateFile();

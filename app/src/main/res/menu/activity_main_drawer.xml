@@ -9,13 +9,15 @@
             android:title="@string/file_open"/>
 
         <item
-            android:id="@+id/nav_item_add"
-            android:icon="@drawable/ic_menu_item_add"
-            android:title="@string/add_item"/>
-        <item
             android:id="@+id/nav_file_create"
             android:icon="@drawable/ic_menu_file_add"
             android:title="@string/create_file"/>
+
+        <item
+            android:id="@+id/nav_item_add"
+            android:icon="@drawable/ic_menu_item_add"
+            android:title="@string/add_item"/>
+
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_menu_manage"

@@ -3,6 +3,7 @@ package net.onepagebook.memorypower.main;
 import android.text.TextUtils;
 
 import net.onepagebook.memorypower.R;
+import net.onepagebook.memorypower.common.Log;
 
 class MainPresenterImpl implements MainPresenter {
 
@@ -78,6 +79,11 @@ class MainPresenterImpl implements MainPresenter {
     public void onNavigationItemSelected(int itemId) {
         switch (itemId) {
             case R.id.nav_open:
+                mView.showOpenFileDialog(mDatabase.getNoteNames());
+                break;
+            case R.id.nav_file_create:
+                //mView.navigateToCreateFile();
+                mView.showCreateFileDialog();
                 break;
             case R.id.nav_item_add:
                 String nowNoteId = mDatabase.getNowNoteId();
@@ -87,10 +93,7 @@ class MainPresenterImpl implements MainPresenter {
                     mView.showNoticeDialog(R.string.notice_open_or_create);
                 }
                 break;
-            case R.id.nav_file_create:
-                //mView.navigateToCreateFile();
-                mView.showCreateFileDialog();
-                break;
+
             case R.id.nav_share:
                 break;
         }
@@ -117,6 +120,13 @@ class MainPresenterImpl implements MainPresenter {
             case R.id.memory_button:
                 break;
         }
+    }
+
+    @Override
+    public void onOpenFileClick(String noteId, String fileName) {
+        Log.d("noteId = " + noteId + ", fileName = " + fileName);
+        mDatabase.setNowNoteId(noteId);
+        mView.setToolbarTitle(fileName);
     }
 
     @Override

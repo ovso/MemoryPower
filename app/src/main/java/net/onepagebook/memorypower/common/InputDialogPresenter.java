@@ -12,7 +12,7 @@ public interface InputDialogPresenter {
 
         void addListener();
 
-        void setTitle();
+        void setTitleBar();
 
         void setInputError(@StringRes int resId);
 

@@ -11,5 +11,6 @@ public interface CreateFilePresenter extends InputDialogPresenter {
 
         void setId(String noteId);
 
+
     }
 }

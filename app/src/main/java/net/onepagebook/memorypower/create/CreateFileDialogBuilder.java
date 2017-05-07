@@ -64,8 +64,9 @@ public class CreateFileDialogBuilder extends AlertDialog.Builder implements Crea
     }
 
     @Override
-    public void setTitle() {
+    public void setTitleBar() {
         setTitle(R.string.create_file);
+        setIcon(R.drawable.ic_menu_file_add);
     }
 
     @Override

@@ -59,8 +59,9 @@ public class ItemAddDialogBuilder extends AlertDialog.Builder implements ItemAdd
     }
 
     @Override
-    public void setTitle() {
+    public void setTitleBar() {
         setTitle(R.string.item_add);
+        setIcon(R.drawable.ic_menu_item_add);
     }
 
     @Override

@@ -12,6 +12,8 @@ interface MainPresenter extends Presenter {
 
     void onCreateFileSuccess(String id);
 
+    void onOpenFileClick(String noteId, String fileName);
+
     interface View extends Presenter.View {
         void setSubject(String subject);
         void setContent(String content);
@@ -31,5 +33,7 @@ interface MainPresenter extends Presenter {
         void showItemAddDialog(String noteId);
 
         void showNoticeDialog(@StringRes int resId);
+
+        void showOpenFileDialog(String[] items);
     }
 }

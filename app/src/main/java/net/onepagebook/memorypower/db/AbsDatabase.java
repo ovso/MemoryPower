@@ -40,13 +40,25 @@ public abstract class AbsDatabase {
     public String getNoteId(String fileName) {
         KeyPointNote note = mRealm.where(KeyPointNote.class).equalTo("name", fileName).findFirst();
         return note.getId();
-
     }
 
 
-    public String getNoteName(String id) {
-        KeyPointNote note = mRealm.where(KeyPointNote.class).equalTo("id", id).findFirst();
+    public String getNoteName(String noteId) {
+        KeyPointNote note = mRealm.where(KeyPointNote.class).equalTo("id", noteId).findFirst();
         return note.getName();
     }
 
+    public String[] getNoteNames() {
+        RealmResults<KeyPointNote> results = mRealm.where(KeyPointNote.class).findAll();
+        int size = results.size();
+        if (size > 0) {
+            String[] names = new String[results.size()];
+            for (int i = 0; i < results.size(); i++) {
+                names[i] = results.get(i).getName();
+            }
+            return names;
+        } else {
+            return null;
+        }
+    }
 }

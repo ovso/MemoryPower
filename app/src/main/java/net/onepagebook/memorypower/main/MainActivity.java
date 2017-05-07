@@ -17,6 +17,8 @@ import net.onepagebook.memorypower.R;
 import net.onepagebook.memorypower.add.ItemAddDialogBuilder;
 import net.onepagebook.memorypower.common.AbsBaseActivity;
 import net.onepagebook.memorypower.create.CreateFileDialogBuilder;
+import net.onepagebook.memorypower.open.OpenFileClickListener;
+import net.onepagebook.memorypower.open.OpenFileDialogBuilder;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
@@ -142,7 +144,19 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
         dialog.setIcon(R.drawable.ic_warning);
         dialog.setTitle(" ");
         dialog.show();
+    }
 
+    @Override
+    public void showOpenFileDialog(String[] items) {
+        OpenFileDialogBuilder builder = new OpenFileDialogBuilder(this);
+        builder.setItems(items);
+        builder.setPositiveButton(new OpenFileClickListener() {
+            @Override
+            public void onClick(String noteId, String fileName) {
+                mPresenter.onOpenFileClick(noteId, fileName);
+            }
+        });
+        builder.show();
     }
 
     @OnClick({R.id.play_pause_button, R.id.stop_button, R.id.memory_button})

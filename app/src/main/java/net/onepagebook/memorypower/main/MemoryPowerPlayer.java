@@ -16,14 +16,17 @@ class MemoryPowerPlayer {
     private int displayInterval;
 
     private SimpleCountDownTimer countDownTimer;
+    private int currentIndex = 0;
 
     MemoryPowerPlayer() {
         playingStatus = PlayingStatus.STOP;
     }
 
-    private int currentIndex = 0;
     void play() {
-        if(playingStatus == PlayingStatus.PAUSE) {
+        if (!isPlayable()) {
+            return;
+        }
+        if (playingStatus == PlayingStatus.PAUSE) {
             onPlayerListener.onResume();
         } else {
             onPlayerListener.onPlay();
@@ -48,6 +51,15 @@ class MemoryPowerPlayer {
         countDownTimer = timer.start();
     }
 
+    private boolean isPlayable() {
+        if (playCount < 1) {
+            onPlayerListener.onError(PlayErrorStatus.EMPTY_ITEM);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     void pause() {
         playingStatus = PlayingStatus.PAUSE;
         countDownTimer.cancel();
@@ -57,8 +69,12 @@ class MemoryPowerPlayer {
     void stop() {
         playingStatus = PlayingStatus.STOP;
         currentIndex = 0;
-        countDownTimer.cancel();
-        onPlayerListener.onStop();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        if (onPlayerListener != null) {
+            onPlayerListener.onStop();
+        }
     }
 
     interface OnPlayerListener {
@@ -73,5 +89,8 @@ class MemoryPowerPlayer {
         void onPause();
 
         void onFinished();
+
+        void onError(PlayErrorStatus status);
     }
+
 }

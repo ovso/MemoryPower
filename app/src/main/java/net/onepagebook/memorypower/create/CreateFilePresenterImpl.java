@@ -24,7 +24,7 @@ class CreateFilePresenterImpl implements CreateFilePresenter {
     @Override
     public void onClickOk(String fileName) {
         if(TextUtils.isEmpty(fileName)) {
-            mView.setInputError(R.string.error_empty);
+            mView.setInputError(R.string.error_input_empty);
         } else {
             if (!mDatabase.isExistFileName("name", fileName)) {
                 mDatabase.createFile(fileName);

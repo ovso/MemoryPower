@@ -66,4 +66,6 @@ public abstract class AbsDatabase {
     public List<KeyPointNote> getKeyPointNotes() {
         return mRealm.where(KeyPointNote.class).findAll();
     }
+
+
 }

@@ -25,9 +25,9 @@ public class ItemAddPresenterImpl implements ItemAddPresenter {
     public void onClickOk(String subject, String content) {
         // do something
         if (TextUtils.isEmpty(subject)) {
-            mView.setInputError(R.string.error_empty);
+            mView.setInputError(R.string.error_input_empty);
         } else if (TextUtils.isEmpty(content)) {
-            mView.setInputError2(R.string.error_empty);
+            mView.setInputError2(R.string.error_input_empty);
         } else {
             mDatabase.add(subject, content, mDatabase.getNoteId());
             mView.dismiss();

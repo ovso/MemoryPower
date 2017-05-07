@@ -75,6 +75,7 @@ class MainPresenterImpl implements MainPresenter {
     @Override
     public void onCreate() {
         mView.addListener();
+        mView.setScrollTextView();
     }
 
     @Override
@@ -134,11 +135,7 @@ class MainPresenterImpl implements MainPresenter {
     }
 
     private boolean isPlayable() {
-        if (mDatabase.getKeyPointNote(mDatabase.getNowNoteId()) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return mDatabase.getKeyPointNote(mDatabase.getNowNoteId()) != null;
     }
 
     @Override

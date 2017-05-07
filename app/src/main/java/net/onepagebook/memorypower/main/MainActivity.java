@@ -8,6 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
+import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -84,6 +85,11 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     @Override
     public void setContent(String content) {
         mContentTextView.setText(content);
+    }
+
+    @Override
+    public void setScrollTextView() {
+        mContentTextView.setMovementMethod(new ScrollingMovementMethod());
     }
 
     @SuppressWarnings("deprecation")

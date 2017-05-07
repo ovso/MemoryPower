@@ -73,6 +73,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subject_textview"
+        android:scrollbars="vertical"
         tools:text="핵심내용"/>
 
     <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar

@@ -35,5 +35,7 @@ interface MainPresenter extends Presenter {
         void showNoticeDialog(@StringRes int resId);
 
         void showOpenFileDialog(String[] items);
+
+        void setScrollTextView();
     }
 }

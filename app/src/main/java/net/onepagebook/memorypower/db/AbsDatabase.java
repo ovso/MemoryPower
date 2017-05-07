@@ -4,6 +4,7 @@ import net.onepagebook.memorypower.common.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import io.realm.Realm;
@@ -60,5 +61,9 @@ public abstract class AbsDatabase {
         } else {
             return null;
         }
+    }
+
+    public List<KeyPointNote> getKeyPointNotes() {
+        return mRealm.where(KeyPointNote.class).findAll();
     }
 }

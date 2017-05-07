@@ -79,7 +79,9 @@ class MainPresenterImpl implements MainPresenter {
     public void onNavigationItemSelected(int itemId) {
         switch (itemId) {
             case R.id.nav_open:
-                mView.showOpenFileDialog(mDatabase.getNoteNames());
+                int size = mDatabase.getKeyPointNotes().size();
+                if(size > 0) mView.showOpenFileDialog(mDatabase.getNoteNames());
+                else mView.showNoticeDialog(R.string.notice_create_file);
                 break;
             case R.id.nav_file_create:
                 //mView.navigateToCreateFile();

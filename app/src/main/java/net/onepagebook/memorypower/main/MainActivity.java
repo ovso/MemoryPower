@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -196,8 +195,18 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
         builder.show();
     }
 
-    @OnClick({R.id.play_pause_button, R.id.stop_button, R.id.memory_button})
-    void onClickPlayControl(View v) {
-        mPresenter.onClickPlayControl(v.getId());
+    @OnClick(R.id.play_pause_button)
+    void onClickPlayPause() {
+        mPresenter.onClickPlayPause();
+    }
+
+    @OnClick(R.id.stop_button)
+    void onClickStop() {
+        mPresenter.onClickStop();
+    }
+
+    @OnClick(R.id.remember_button)
+    void onClickRemember() {
+        mPresenter.onClickRemember();
     }
 }

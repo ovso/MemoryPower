@@ -123,7 +123,7 @@
             app:srcCompat="@drawable/ic_stop"/>
 
         <ImageButton
-            android:id="@+id/memory_button"
+            android:id="@id/remember_button"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"

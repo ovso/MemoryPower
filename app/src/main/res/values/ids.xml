@@ -11,4 +11,5 @@
     <item name="textinputlayout" type="id"/>
     <item name="textinputlayout2" type="id"/>
     <item name="input_edittext2" type="id"/>
+    <item name="remember_button" type="id"/>
 </resources>

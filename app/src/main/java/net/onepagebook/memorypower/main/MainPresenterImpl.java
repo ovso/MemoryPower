@@ -107,33 +107,35 @@ class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void onClickPlayControl(int id) {
+    public void onClickPlayPause() {
         PlayingStatus status = mPlayer.getPlayingStatus();
-        switch (id) {
-            case R.id.play_pause_button:
-                if (status == PlayingStatus.STOP || status == PlayingStatus.PAUSE) {
-                    if (isPlayable()) {
-                        mPlayer.setPlayCount(
-                                mDatabase.getKeyPointNote(mDatabase.getNowNoteId()).getKeyPoints
-                                        ().size()
-                        );
-                    } else {
-                        onPlayerListener.onError(PlayErrorStatus.EMPTY_FILE);
-                        return;
-                    }
+        if (status == PlayingStatus.STOP || status == PlayingStatus.PAUSE) {
+            if (isPlayable()) {
+                mPlayer.setPlayCount(
+                        mDatabase.getKeyPointNote(mDatabase.getNowNoteId()).getKeyPoints
+                                ().size()
+                );
+            } else {
+                onPlayerListener.onError(PlayErrorStatus.EMPTY_FILE);
+                return;
+            }
 
-                    mPlayer.play();
-                } else if (mPlayer.getPlayingStatus() == PlayingStatus.PLAYING) {
-                    mPlayer.pause();
-                }
-                break;
-            case R.id.stop_button:
-                mView.setPlayPauseIcon(R.drawable.ic_play);
-                mPlayer.stop();
-                break;
-            case R.id.memory_button:
-                break;
+            mPlayer.play();
+        } else if (mPlayer.getPlayingStatus() == PlayingStatus.PLAYING) {
+            mPlayer.pause();
         }
+
+    }
+
+    @Override
+    public void onClickStop() {
+        mView.setPlayPauseIcon(R.drawable.ic_play);
+        mPlayer.stop();
+    }
+
+    @Override
+    public void onClickRemember() {
+
     }
 
     private boolean isPlayable() {

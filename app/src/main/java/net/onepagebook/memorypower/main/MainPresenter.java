@@ -7,13 +7,17 @@ interface MainPresenter extends Presenter {
 
     void onNavigationItemSelected(int itemId);
 
-    void onClickPlayControl(int id);
-
     void onStopTrackingTouch(int progress);
 
     void onCreateFileSuccess(String id);
 
     void onOpenFileClick(String noteId, String fileName);
+
+    void onClickPlayPause();
+
+    void onClickStop();
+
+    void onClickRemember();
 
     interface View extends Presenter.View {
         void setSubject(String subject);

@@ -76,6 +76,8 @@ class MainPresenterImpl implements MainPresenter {
     public void onCreate() {
         mView.addListener();
         mView.setScrollTextView();
+        mView.setPlayTypeSpinner(R.array.play_type_spinner_items);
+        mView.setDisplayTypeSpinner(R.array.display_type_spinner_items);
     }
 
     @Override

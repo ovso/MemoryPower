@@ -4,105 +4,130 @@
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
-                                             android:background="#EDBB99"
                                              android:orientation="vertical"
+                                             app:layout_behavior="@string/appbar_scrolling_view_behavior"
                                              tools:context="net.onepagebook.memorypower.main.MainActivity"
+                                             tools:ignore="missingPrefix"
                                              tools:layout_editor_absoluteX="0dp"
-                                             tools:layout_editor_absoluteY="25dp">
+                                             tools:layout_editor_absoluteY="25dp"
+                                             tools:showIn="@layout/app_bar_main">
 
-
-    <ImageButton
-        android:id="@+id/stop_button"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@+id/play_pause_button"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@drawable/ic_stop"/>
-
-    <ImageButton
-        android:id="@+id/play_pause_button"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
-        android:layout_marginBottom="9dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@drawable/ic_play"/>
 
     <TextView
         android:id="@id/subject_textview"
         android:layout_width="0dp"
-        android:layout_height="127dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded"
         android:gravity="center"
         android:textSize="30sp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/play_type_spinner"
         tools:text="제목"/>
 
     <TextView
         android:id="@id/content_textview"
         android:layout_width="0dp"
-        android:layout_height="201dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded"
         android:gravity="center"
+        android:scrollbars="vertical"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/subject_textview"
-        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/subject_textview"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_weight="1"
         tools:text="핵심내용"/>
 
     <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
         android:id="@id/speed_seekbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        app:dsb_max="10"
+        app:dsb_max="5"
         app:dsb_min="0"
-        app:layout_constraintBottom_toTopOf="@id/play_pause_button"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
-    <ImageButton
-        android:id="@+id/memory_button"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/play_type_spinner"
+        style="@android:style/Widget.Holo.Light.Spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@+id/stop_button"
+        android:layout_marginTop="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/display_type_spinner"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/display_type_spinner"
+        style="@android:style/Widget.Holo.Light.Spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@drawable/ic_memory"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/speed_seekbar"
+        android:id="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.0">
 
+        <ImageButton
+            android:id="@+id/play_pause_button"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_play"/>
+
+        <ImageButton
+            android:id="@+id/stop_button"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_stop"/>
+
+        <ImageButton
+            android:id="@+id/memory_button"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_memory"/>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

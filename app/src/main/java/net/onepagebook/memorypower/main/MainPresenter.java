@@ -1,5 +1,6 @@
 package net.onepagebook.memorypower.main;
 
+import android.support.annotation.ArrayRes;
 import android.support.annotation.StringRes;
 
 interface MainPresenter extends Presenter {
@@ -37,5 +38,8 @@ interface MainPresenter extends Presenter {
         void showOpenFileDialog(String[] items);
 
         void setScrollTextView();
+
+        void setPlayTypeSpinner(@ArrayRes int resId);
+        void setDisplayTypeSpinner(@ArrayRes int resId);
     }
 }

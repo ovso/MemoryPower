@@ -1,6 +1,7 @@
 package net.onepagebook.memorypower.main;
 
 import android.os.Bundle;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
@@ -11,12 +12,16 @@ import android.support.v7.app.AlertDialog;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import net.onepagebook.memorypower.R;
 import net.onepagebook.memorypower.add.ItemAddDialogBuilder;
 import net.onepagebook.memorypower.common.AbsBaseActivity;
+import net.onepagebook.memorypower.common.Log;
 import net.onepagebook.memorypower.create.CreateFileDialogBuilder;
 import net.onepagebook.memorypower.open.OpenFileClickListener;
 import net.onepagebook.memorypower.open.OpenFileDialogBuilder;
@@ -43,6 +48,10 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     ImageButton mPlayPauseButton;
     @BindView(R.id.stop_button)
     ImageButton mStopButton;
+    @BindView(R.id.play_type_spinner)
+    Spinner mPlayTypeSpinner;
+    @BindView(R.id.display_type_spinner)
+    Spinner mDisplayTypeSpinner;
 
     private MainPresenter mPresenter;
 
@@ -90,6 +99,34 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     @Override
     public void setScrollTextView() {
         mContentTextView.setMovementMethod(new ScrollingMovementMethod());
+    }
+
+    @Override
+    public void setPlayTypeSpinner(@ArrayRes int resId) {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array
+                .play_type_spinner_items, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mPlayTypeSpinner.setAdapter(adapter);
+        mPlayTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("onItemSelcted");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.d("onNothingSelected");
+            }
+        });
+    }
+
+    @Override
+    public void setDisplayTypeSpinner(@ArrayRes int resId) {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array
+                .display_type_spinner_items, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mDisplayTypeSpinner.setAdapter(adapter);
+
     }
 
     @SuppressWarnings("deprecation")

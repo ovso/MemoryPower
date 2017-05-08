@@ -2,11 +2,7 @@ package net.onepagebook.memorypower.main;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
-/**
- * Created by ovso on 2017. 5. 1..
- */
-
-public abstract class OnSimpleProgressChangeListener implements DiscreteSeekBar.OnProgressChangeListener {
+abstract class OnSimpleProgressChangeListener implements DiscreteSeekBar.OnProgressChangeListener {
 
 
     @Override
@@ -24,5 +20,5 @@ public abstract class OnSimpleProgressChangeListener implements DiscreteSeekBar.
             onStopTrackingTouch(seekBar.getProgress());
     }
 
-    abstract void onStopTrackingTouch(int progress);
+    public abstract void onStopTrackingTouch(int progress);
 }

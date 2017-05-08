@@ -12,7 +12,6 @@ import android.support.v7.app.AlertDialog;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -107,15 +106,10 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
                 .play_type_spinner_items, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPlayTypeSpinner.setAdapter(adapter);
-        mPlayTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mPlayTypeSpinner.setOnItemSelectedListener(new OnSimpleOnItemSelctedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("onItemSelcted");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.d("onNothingSelected");
+            public void onItemSelected(int position) {
+                Log.d("position = " + position);
             }
         });
     }
@@ -146,7 +140,7 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     private DiscreteSeekBar.OnProgressChangeListener mOnSimpleProgressChangeListener() {
         return new OnSimpleProgressChangeListener() {
             @Override
-            void onStopTrackingTouch(int progress) {
+            public void onStopTrackingTouch(int progress) {
                 mPresenter.onStopTrackingTouch(progress);
             }
         };

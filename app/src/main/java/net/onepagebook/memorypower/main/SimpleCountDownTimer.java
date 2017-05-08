@@ -5,7 +5,7 @@ import android.os.Message;
 
 import lombok.Setter;
 
-public abstract class SimpleCountDownTimer {
+abstract class SimpleCountDownTimer {
 
     private final static int MSG = 1;
     private int countDown;
@@ -34,23 +34,23 @@ public abstract class SimpleCountDownTimer {
         }
     };
 
-    public SimpleCountDownTimer(int countDown, long countDownInterval) {
+    SimpleCountDownTimer(int countDown, long countDownInterval) {
         this.countDown = countDown;
         this.countDownInterval = countDownInterval;
     }
 
-    public synchronized final SimpleCountDownTimer start() {
+    synchronized final SimpleCountDownTimer start() {
         mCancelled = false;
         mHandler.sendMessage(mHandler.obtainMessage(MSG));
         return this;
     }
 
-    public synchronized final void cancel() {
+    synchronized final void cancel() {
         mCancelled = true;
         mHandler.removeMessages(MSG);
     }
 
-    public abstract void onTick(int index);
+    abstract void onTick(int index);
 
-    public abstract void onFinished();
+    abstract void onFinished();
 }

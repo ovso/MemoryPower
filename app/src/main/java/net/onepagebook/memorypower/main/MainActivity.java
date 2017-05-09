@@ -9,8 +9,10 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -50,7 +52,8 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     Spinner mPlayTypeSpinner;
     @BindView(R.id.display_type_spinner)
     Spinner mDisplayTypeSpinner;
-
+    @BindView(R.id.remember_button)
+    ImageButton mRememberButton;
     private MainPresenter mPresenter;
 
     @Override
@@ -153,6 +156,23 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     @Override
     public void setSeekbarEnable(boolean enable) {
         mSpeedSeekbar.setEnabled(enable);
+    }
+
+    @Override
+    public void setRememberBottonEnable(boolean enable) {
+        mRememberButton.setEnabled(enable);
+    }
+
+    @BindView(R.id.remember_availablity_value_textview)
+    TextView mRememberAvailablilityValueTextView;
+    @BindView(R.id.remember_availablity_textview)
+    TextView mRememberAvailablilityTextView;
+    @Override
+    public void setRememberAvailablility(String availablility) {
+        mRememberAvailablilityValueTextView.setText(availablility);
+        mRememberAvailablilityTextView.setVisibility(
+                TextUtils.isEmpty(availablility)? View.INVISIBLE:View.VISIBLE
+        );
     }
 
     @Override

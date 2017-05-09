@@ -18,4 +18,7 @@
     <string name="notice_play_open_or_create">재생하려면 파일을 열거나 생성해야 합니다.</string>
     <string name="notice_play_item_add">재생하려면 항목을 추가해야 합니다.</string>
     <string name="notice_empty_file">파일이 없습니다. 파일을 생성해야 합니다.</string>
+    <string name="remember_availability">기억여부 : </string>
+    <string name="remember_complete">완료</string>
+    <string name="remember_not_complete">미완</string>
 </resources>

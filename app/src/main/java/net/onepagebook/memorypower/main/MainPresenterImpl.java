@@ -43,12 +43,14 @@ class MainPresenterImpl implements MainPresenter {
         public void onPlay() {
             mView.setPlayPauseIcon(R.drawable.ic_pause);
             mView.setSeekbarEnable(false);
+            mView.setRememberBottonEnable(true);
         }
 
         @Override
         public void onStop() {
             setEmpty();
             mView.setSeekbarEnable(true);
+            mView.setRememberBottonEnable(false);
         }
 
         @Override
@@ -71,13 +73,13 @@ class MainPresenterImpl implements MainPresenter {
         mDatabase = new MainDatabase();
     }
 
-
     @Override
     public void onCreate() {
         mView.addListener();
         mView.setScrollTextView();
         mView.setPlayTypeSpinner(R.array.play_type_spinner_items);
         mView.setDisplayTypeSpinner(R.array.display_type_spinner_items);
+        mView.setRememberAvailablility("완료");
     }
 
     @Override
@@ -135,7 +137,8 @@ class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onClickRemember() {
-
+        KeyPointNote note = mDatabase.getKeyPointNote(mDatabase.getNowNoteId());
+        mDatabase.setKeyPointRemember(note, mPlayer.getCurrentIndex());
     }
 
     private boolean isPlayable() {

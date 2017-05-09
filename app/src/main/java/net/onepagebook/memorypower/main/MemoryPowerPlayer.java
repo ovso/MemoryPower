@@ -16,6 +16,7 @@ class MemoryPowerPlayer {
     private int displayInterval;
 
     private SimpleCountDownTimer countDownTimer;
+    @Getter
     private int currentIndex = 0;
 
     MemoryPowerPlayer() {

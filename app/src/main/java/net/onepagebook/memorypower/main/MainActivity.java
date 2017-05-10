@@ -54,6 +54,10 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     Spinner mDisplayTypeSpinner;
     @BindView(R.id.remember_button)
     ImageButton mRememberButton;
+    @BindView(R.id.remember_availablity_value_textview)
+    TextView mRememberAvailablilityValueTextView;
+    @BindView(R.id.remember_availablity_textview)
+    TextView mRememberAvailablilityTextView;
     private MainPresenter mPresenter;
 
     @Override
@@ -159,19 +163,10 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     }
 
     @Override
-    public void setRememberBottonEnable(boolean enable) {
-        mRememberButton.setEnabled(enable);
-    }
-
-    @BindView(R.id.remember_availablity_value_textview)
-    TextView mRememberAvailablilityValueTextView;
-    @BindView(R.id.remember_availablity_textview)
-    TextView mRememberAvailablilityTextView;
-    @Override
     public void setRememberAvailablility(String availablility) {
         mRememberAvailablilityValueTextView.setText(availablility);
         mRememberAvailablilityTextView.setVisibility(
-                TextUtils.isEmpty(availablility)? View.INVISIBLE:View.VISIBLE
+                TextUtils.isEmpty(availablility) ? View.INVISIBLE : View.VISIBLE
         );
     }
 

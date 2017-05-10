@@ -21,6 +21,7 @@ interface MainPresenter extends Presenter {
 
     interface View extends Presenter.View {
         void setSubject(String subject);
+
         void setContent(String content);
 
         void addListener();
@@ -44,9 +45,8 @@ interface MainPresenter extends Presenter {
         void setScrollTextView();
 
         void setPlayTypeSpinner(@ArrayRes int resId);
-        void setDisplayTypeSpinner(@ArrayRes int resId);
 
-        void setRememberBottonEnable(boolean enable);
+        void setDisplayTypeSpinner(@ArrayRes int resId);
 
         void setRememberAvailablility(String availablility);
     }

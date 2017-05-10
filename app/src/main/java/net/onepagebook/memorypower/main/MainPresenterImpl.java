@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import net.onepagebook.memorypower.R;
 import net.onepagebook.memorypower.common.Log;
+import net.onepagebook.memorypower.common.ObjectUtils;
 import net.onepagebook.memorypower.db.KeyPoint;
 import net.onepagebook.memorypower.db.KeyPointNote;
 
@@ -43,14 +44,12 @@ class MainPresenterImpl implements MainPresenter {
         public void onPlay() {
             mView.setPlayPauseIcon(R.drawable.ic_pause);
             mView.setSeekbarEnable(false);
-            mView.setRememberBottonEnable(true);
         }
 
         @Override
         public void onStop() {
             setEmpty();
             mView.setSeekbarEnable(true);
-            mView.setRememberBottonEnable(false);
         }
 
         @Override
@@ -137,8 +136,16 @@ class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onClickRemember() {
-        KeyPointNote note = mDatabase.getKeyPointNote(mDatabase.getNowNoteId());
-        mDatabase.setKeyPointRemember(note, mPlayer.getCurrentIndex());
+        if (mPlayer.getPlayingStatus() == PlayingStatus.PLAYING) {
+            KeyPointNote note = mDatabase.getKeyPointNote(mDatabase.getNowNoteId());
+            if (!ObjectUtils.isEmpty(note)) {
+                mDatabase.setKeyPointRemember(note, mPlayer.getCurrentIndex());
+            } else {
+                mView.showNoticeDialog(R.string.notice_no_items_can_be_memorized);
+            }
+        } else {
+            mView.showNoticeDialog(R.string.notice_no_items_can_be_memorized);
+        }
     }
 
     private boolean isPlayable() {

@@ -172,6 +172,12 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     }
 
     @Override
+    public void setSpinnerEnable(boolean enable) {
+        mPlayTypeSpinner.setEnabled(enable);
+        mDisplayTypeSpinner.setEnabled(enable);
+    }
+
+    @Override
     public void showCreateFileDialog() {
         CreateFileDialogBuilder builder = new CreateFileDialogBuilder(this);
         builder.setOnDialogListener(id -> mPresenter.onCreateFileSuccess(id));

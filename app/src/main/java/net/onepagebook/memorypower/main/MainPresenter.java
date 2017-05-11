@@ -49,5 +49,7 @@ interface MainPresenter extends Presenter {
         void setDisplayTypeSpinner(@ArrayRes int resId);
 
         void setRemembering(@StringRes int resId);
+
+        void setSpinnerEnable(boolean enable);
     }
 }

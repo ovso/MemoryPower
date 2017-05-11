@@ -47,12 +47,14 @@ class MainPresenterImpl implements MainPresenter {
         public void onPlay() {
             mView.setPlayPauseIcon(R.drawable.ic_pause);
             mView.setSeekbarEnable(false);
+            mView.setSpinnerEnable(false);
         }
 
         @Override
         public void onStop() {
             setEmpty();
             mView.setSeekbarEnable(true);
+            mView.setSpinnerEnable(true);
         }
 
         @Override

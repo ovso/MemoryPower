@@ -48,6 +48,6 @@ interface MainPresenter extends Presenter {
 
         void setDisplayTypeSpinner(@ArrayRes int resId);
 
-        void setRememberAvailablility(String availablility);
+        void setRemembering(@StringRes int resId);
     }
 }

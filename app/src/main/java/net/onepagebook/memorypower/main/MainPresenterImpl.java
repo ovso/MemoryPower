@@ -22,6 +22,8 @@ class MainPresenterImpl implements MainPresenter {
             KeyPoint point = note.getKeyPoints().get(index);
             mView.setSubject(point.getSubject());
             mView.setContent(point.getContent());
+            int resId = point.isRemember()?R.string.remember_complete:R.string.remember_not_complete;
+            mView.setRemembering(resId);
         }
 
         @Override
@@ -38,6 +40,7 @@ class MainPresenterImpl implements MainPresenter {
             mView.setSubject(null);
             mView.setContent(null);
             mView.setPlayPauseIcon(R.drawable.ic_play);
+            mView.setRemembering(0);
         }
 
         @Override
@@ -78,7 +81,7 @@ class MainPresenterImpl implements MainPresenter {
         mView.setScrollTextView();
         mView.setPlayTypeSpinner(R.array.play_type_spinner_items);
         mView.setDisplayTypeSpinner(R.array.display_type_spinner_items);
-        mView.setRememberAvailablility("완료");
+        mView.setRemembering(0);
     }
 
     @Override

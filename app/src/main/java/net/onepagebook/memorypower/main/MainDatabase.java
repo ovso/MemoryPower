@@ -57,10 +57,12 @@ class MainDatabase extends AbsDatabase {
         return keypointDevList;
     }
 
-    void setKeyPointRemember(KeyPoint point) {
+    boolean setKeyPointRemember(KeyPoint point) {
         mRealm.beginTransaction();
-        point.setRemember(true);
+        boolean isRemember = !point.isRemember();
+        point.setRemember(isRemember);
         mRealm.commitTransaction();
+        return isRemember;
     }
 
 }

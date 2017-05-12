@@ -17,7 +17,6 @@ class MainPresenterImpl implements MainPresenter {
 
         @Override
         public void onPlay() {
-            Log.d("onPlay");
             mDatabase.setPlayKeyPointList(mDatabase.getKeyPointList(mDatabase.getNowNoteId(),
                     mDatabase.getDisplayType()));
 
@@ -147,8 +146,10 @@ class MainPresenterImpl implements MainPresenter {
         if (mPlayer.getPlayingStatus() == PlayingStatus.PLAYING) {
             KeyPoint keyPoint = mDatabase.getPlayKeyPoint();
             if (!ObjectUtils.isEmpty(keyPoint)) {
-                mDatabase.setKeyPointRemember(mDatabase.getPlayKeyPoint());
-                mView.setRemembering(R.string.remember_complete);
+                boolean isRemember = mDatabase.setKeyPointRemember(keyPoint);
+                int resId = isRemember ? R.string.remember_complete : R.string
+                        .remember_not_complete;
+                mView.setRemembering(resId);
             } else {
                 mView.showNoticeDialog(R.string.notice_no_items_can_be_memorized);
             }

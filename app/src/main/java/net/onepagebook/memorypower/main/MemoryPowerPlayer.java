@@ -11,12 +11,17 @@ class MemoryPowerPlayer {
     @Setter
     private int playCount;
     @Setter
+    @Getter
     private int displayInterval;
 
     private SimpleCountDownTimer countDownTimer;
     @Getter
     @Setter
     private boolean isRandom;
+    private SkipNextContDown skipNextContDown;
+    @Setter
+    @Getter
+    private Mode mode = Mode.GENERAL;
 
     MemoryPowerPlayer() {
         playingStatus = PlayingStatus.STOP;
@@ -45,6 +50,32 @@ class MemoryPowerPlayer {
         countDownTimer = timer.start();
     }
 
+    void skipNext() {
+        if (!isPlayable()) {
+            return;
+        }
+        onPlayerListener.onSkipNext();
+        if (skipNextContDown == null) {
+            skipNextContDown = new SkipNextContDown() {
+                @Override
+                void onTick(int index) {
+                    onPlayerListener.onTick(index);
+                    playingStatus = PlayingStatus.STOP;
+                }
+
+                @Override
+                void onFinished() {
+                    //onPlayerListener.onFinished();
+                    onPlayerListener.onStop();
+                    playingStatus = PlayingStatus.STOP;
+                }
+            };
+        }
+        skipNextContDown.setPlayCount(playCount);
+        skipNextContDown.setRandom(isRandom);
+        skipNextContDown.next();
+    }
+
     void resume() {
         playingStatus = PlayingStatus.PLAYING;
         countDownTimer.resume();
@@ -69,11 +100,20 @@ class MemoryPowerPlayer {
 
     void stop() {
         playingStatus = PlayingStatus.STOP;
-        if (countDownTimer != null) {
-            countDownTimer.stop();
-        }
         if (onPlayerListener != null) {
             onPlayerListener.onStop();
+        }
+        switch (mode) {
+            case GENERAL:
+                if (countDownTimer != null) {
+                    countDownTimer.stop();
+                }
+                break;
+            case SKIP_NEXT:
+                if (skipNextContDown != null) {
+                    skipNextContDown.stop();
+                }
+                break;
         }
     }
 
@@ -104,6 +144,15 @@ class MemoryPowerPlayer {
         }
     }
 
+    public enum Mode {
+        GENERAL(0), SKIP_NEXT(1);
+        private int value;
+
+        Mode(int value) {
+            this.value = value;
+        }
+    }
+
     interface OnPlayerListener {
         void onTick(int index);
 
@@ -118,5 +167,7 @@ class MemoryPowerPlayer {
         void onFinished();
 
         void onError(PlayErrorStatus status);
+
+        void onSkipNext();
     }
 }

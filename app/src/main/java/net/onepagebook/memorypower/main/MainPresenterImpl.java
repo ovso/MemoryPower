@@ -26,7 +26,18 @@ class MainPresenterImpl implements MainPresenter {
         }
 
         @Override
+        public void onSkipNext() {
+            mDatabase.setPlayKeyPointList(mDatabase.getKeyPointList(mDatabase.getNowNoteId(),
+                    mDatabase.getDisplayType()));
+
+            mView.setPlayPauseIcon(R.drawable.ic_skip_next_black_24dp);
+            mView.setSeekbarEnable(false);
+            mView.setSpinnerEnable(false);
+        }
+
+        @Override
         public void onTick(int index) {
+            Log.d("onTick(" + index + ")");
             KeyPoint point = mDatabase.getPlayKeyPointList().get(index);
             mDatabase.setPlayKeyPoint(point);
             mView.setSubject(point.getSubject());
@@ -138,7 +149,12 @@ class MainPresenterImpl implements MainPresenter {
                 MemoryPowerPlayer.DisplayType displayType = mDatabase.getDisplayType();
                 int count = mDatabase.getKeyPointList(nowNoteId, displayType).size();
                 mPlayer.setPlayCount(count);
-                mPlayer.play();
+
+                if (mPlayer.getMode() == MemoryPowerPlayer.Mode.GENERAL) {
+                    mPlayer.play();
+                } else {
+                    mPlayer.skipNext();
+                }
                 break;
         }
 
@@ -163,7 +179,19 @@ class MainPresenterImpl implements MainPresenter {
                 mView.showNoticeDialog(R.string.notice_no_items_can_be_memorized);
             }
         } else {
-            mView.showNoticeDialog(R.string.notice_no_items_can_be_memorized);
+            if(mPlayer.getMode() == MemoryPowerPlayer.Mode.SKIP_NEXT) {
+                KeyPoint keyPoint = mDatabase.getPlayKeyPoint();
+                if (!ObjectUtils.isEmpty(keyPoint)) {
+                    boolean isRemember = mDatabase.setKeyPointRemember(keyPoint);
+                    int resId = isRemember ? R.string.remember_complete : R.string
+                            .remember_not_complete;
+                    mView.setRemembering(resId);
+                } else {
+                    mView.showNoticeDialog(R.string.notice_no_items_can_be_memorized);
+                }
+            } else {
+                mView.showNoticeDialog(R.string.notice_no_items_can_be_memorized);
+            }
         }
     }
 
@@ -203,7 +231,11 @@ class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onStopTrackingTouch(int progress) {
-        mPlayer.setDisplayInterval(progress * 1000);
+        int interval = progress * 1000;
+        mPlayer.setDisplayInterval(interval);
+        if(interval==0) {
+            mPlayer.setMode(MemoryPowerPlayer.Mode.SKIP_NEXT);
+        }
     }
 
     @Override

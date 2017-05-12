@@ -133,6 +133,7 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
 
         mNavigationView.setNavigationItemSelectedListener(this);
         mSpeedSeekbar.setOnProgressChangeListener(mOnSimpleProgressChangeListener());
+        mSpeedSeekbar.setProgress(1);
         mPlayTypeSpinner.setOnItemSelectedListener(new OnSimpleItemSelctedListener() {
             @Override
             public void onItemSelected(int position) {

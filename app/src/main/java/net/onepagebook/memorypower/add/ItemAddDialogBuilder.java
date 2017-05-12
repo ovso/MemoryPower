@@ -12,10 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import net.onepagebook.memorypower.R;
+import net.onepagebook.memorypower.create.CreateFileDialogBuilder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import lombok.Getter;
+import lombok.Setter;
 
 public class ItemAddDialogBuilder extends AlertDialog.Builder implements ItemAddPresenter.View {
     @BindView(R.id.textinputlayout)
@@ -75,10 +77,13 @@ public class ItemAddDialogBuilder extends AlertDialog.Builder implements ItemAdd
         textInputLayout2.setError(getContext().getString(resId));
         inputEditText2.setText("");
     }
+    @Setter
+    private CreateFileDialogBuilder.OnDialogListener onDialogListener;
 
     @Override
     public void dismiss() {
         alertDialog.dismiss();
+        onDialogListener.onSuccess(null);
     }
 
     public void showAlertDialog() {

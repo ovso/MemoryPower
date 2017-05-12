@@ -87,6 +87,8 @@ class MainPresenterImpl implements MainPresenter {
         mView.setPlayTypeSpinner(R.array.play_type_spinner_items);
         mView.setDisplayTypeSpinner(R.array.display_type_spinner_items);
         mView.setRemembering(0);
+        mView.setSpinnerEnable(false);
+        mPlayer.setDisplayInterval(1000);
     }
 
     @Override
@@ -185,6 +187,11 @@ class MainPresenterImpl implements MainPresenter {
         Log.d("noteId = " + noteId + ", fileName = " + fileName);
         mDatabase.setNowNoteId(noteId);
         mView.setToolbarTitle(fileName);
+        if (mDatabase.getKeyPointNote(noteId).getKeyPoints().size() > 0) {
+            mView.setSpinnerEnable(true);
+        } else {
+            mView.setSpinnerEnable(false);
+        }
     }
 
     @Override
@@ -196,5 +203,15 @@ class MainPresenterImpl implements MainPresenter {
     public void onCreateFileSuccess(String id) {
         mDatabase.setNowNoteId(id);
         mView.setToolbarTitle(mDatabase.getNoteName(id));
+        if (mDatabase.getKeyPointNote(id).getKeyPoints().size() > 0) {
+            mView.setSpinnerEnable(true);
+        } else {
+            mView.setSpinnerEnable(false);
+        }
+    }
+
+    @Override
+    public void onItemAddSuccess() {
+        mView.setSpinnerEnable(true);
     }
 }

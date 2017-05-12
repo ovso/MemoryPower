@@ -192,6 +192,9 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
     @Override
     public void showItemAddDialog(String noteId) {
         ItemAddDialogBuilder builder = new ItemAddDialogBuilder(this);
+        builder.setOnDialogListener(id -> {
+            mPresenter.onItemAddSuccess();
+        });
         builder.setNoteId(noteId);
         builder.create();
         builder.showAlertDialog();

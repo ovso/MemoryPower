@@ -23,6 +23,8 @@ interface MainPresenter extends Presenter {
 
     void onDisplayTypeSpinnerItemSelected(int position);
 
+    void onItemAddSuccess();
+
     interface View extends Presenter.View {
         void setSubject(String subject);
 

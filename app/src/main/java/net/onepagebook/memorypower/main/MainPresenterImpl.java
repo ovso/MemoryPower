@@ -17,9 +17,9 @@ class MainPresenterImpl implements MainPresenter {
 
         @Override
         public void onPlay() {
+            Log.d("onPlay");
             mDatabase.setPlayKeyPointList(mDatabase.getKeyPointList(mDatabase.getNowNoteId(),
-                    mDatabase
-                            .getDisplayType()));
+                    mDatabase.getDisplayType()));
 
             mView.setPlayPauseIcon(R.drawable.ic_pause);
             mView.setSeekbarEnable(false);

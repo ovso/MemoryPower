@@ -16,7 +16,7 @@ class MainDatabase extends AbsDatabase {
     private String nowNoteId;
     @Setter
     @Getter
-    private MemoryPowerPlayer.DisplayType displayType;
+    private MemoryPowerPlayer.DisplayType displayType = MemoryPowerPlayer.DisplayType.ALL;
     @Setter
     @Getter
     private List<KeyPoint> playKeyPointList;

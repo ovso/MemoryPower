@@ -64,7 +64,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         app:dsb_max="5"
-        app:dsb_min="0"
+        app:dsb_min="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"

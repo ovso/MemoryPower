@@ -6,6 +6,7 @@ import android.os.Message;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import lombok.Getter;
 import lombok.Setter;
 
 abstract class SimpleCountDownTimer {
@@ -15,6 +16,7 @@ abstract class SimpleCountDownTimer {
     private long countDownInterval;
     private boolean mCancelled = false;
     @Setter
+    @Getter
     private int index = 0;
     @Setter
     private boolean isRandom;
@@ -31,11 +33,12 @@ abstract class SimpleCountDownTimer {
                 } else if (countDown == index) {
                     onFinished();
                     cancel();
+                    return;
                 }
 
                 index++;
 
-                sendMessageDelayed(Message.obtain(), countDownInterval);
+                this.sendMessageDelayed(Message.obtain(), countDownInterval);
             }
         }
     };
@@ -52,11 +55,17 @@ abstract class SimpleCountDownTimer {
         return this;
     }
 
+    synchronized final SimpleCountDownTimer resume() {
+        mCancelled = false;
+        mHandler.sendMessage(mHandler.obtainMessage(MSG));
+        return this;
+    }
+
     private void initIndexList() {
         for (int i = 0; i < countDown; i++) {
             indexList.add(i);
         }
-        if(isRandom) {
+        if (isRandom) {
             Collections.shuffle(indexList);
         }
     }
@@ -66,7 +75,18 @@ abstract class SimpleCountDownTimer {
         mHandler.removeMessages(MSG);
     }
 
+    synchronized final void stop() {
+        cancel();
+        indexList.clear();
+        index = 0;
+    }
+
     abstract void onTick(int index);
 
     abstract void onFinished();
+
+    public void decrementIndex() {
+        index --;
+        if(index < 0) index = 0;
+    }
 }

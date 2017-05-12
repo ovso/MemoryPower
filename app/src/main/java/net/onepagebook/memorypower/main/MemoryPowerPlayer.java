@@ -1,7 +1,5 @@
 package net.onepagebook.memorypower.main;
 
-import net.onepagebook.memorypower.common.Log;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,8 +15,6 @@ class MemoryPowerPlayer {
 
     private SimpleCountDownTimer countDownTimer;
     @Getter
-    private int currentIndex = 0;
-    @Getter
     @Setter
     private boolean isRandom;
 
@@ -30,30 +26,29 @@ class MemoryPowerPlayer {
         if (!isPlayable()) {
             return;
         }
-        if (playingStatus == PlayingStatus.PAUSE) {
-            onPlayerListener.onResume();
-        } else {
-            onPlayerListener.onPlay();
-        }
+        onPlayerListener.onPlay();
+
         playingStatus = PlayingStatus.PLAYING;
         SimpleCountDownTimer timer = new SimpleCountDownTimer(playCount, displayInterval) {
             @Override
             public void onTick(int index) {
-                Log.d("onTick = " + index);
-                currentIndex = index;
                 onPlayerListener.onTick(index);
             }
 
             @Override
             public void onFinished() {
-                Log.d("onFinished()");
                 onPlayerListener.onFinished();
-                stop();
+                MemoryPowerPlayer.this.stop();
             }
         };
-        timer.setIndex(currentIndex);
         timer.setRandom(isRandom);
         countDownTimer = timer.start();
+    }
+
+    void resume() {
+        playingStatus = PlayingStatus.PLAYING;
+        countDownTimer.resume();
+        onPlayerListener.onResume();
     }
 
     private boolean isPlayable() {
@@ -69,13 +64,13 @@ class MemoryPowerPlayer {
         playingStatus = PlayingStatus.PAUSE;
         countDownTimer.cancel();
         onPlayerListener.onPause();
+        countDownTimer.decrementIndex();
     }
 
     void stop() {
         playingStatus = PlayingStatus.STOP;
-        currentIndex = 0;
         if (countDownTimer != null) {
-            countDownTimer.cancel();
+            countDownTimer.stop();
         }
         if (onPlayerListener != null) {
             onPlayerListener.onStop();

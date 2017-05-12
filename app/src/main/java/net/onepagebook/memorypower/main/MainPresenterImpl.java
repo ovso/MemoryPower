@@ -120,19 +120,26 @@ class MainPresenterImpl implements MainPresenter {
     @Override
     public void onClickPlayPause() {
         PlayingStatus status = mPlayer.getPlayingStatus();
-        if (status == PlayingStatus.STOP || status == PlayingStatus.PAUSE) {
-            if (isPlayable()) {
-                mPlayer.setPlayCount(mDatabase.getKeyPointList(mDatabase.getNowNoteId(),
-                        mDatabase.getDisplayType()).size()
-                );
-            } else {
-                onPlayerListener.onError(PlayErrorStatus.EMPTY_FILE);
-                return;
-            }
+        Log.d("status = " + status.toString());
+        switch (status) {
 
-            mPlayer.play();
-        } else if (mPlayer.getPlayingStatus() == PlayingStatus.PLAYING) {
-            mPlayer.pause();
+            case PLAYING:
+                mPlayer.pause();
+                break;
+            case PAUSE:
+                mPlayer.resume();
+                break;
+            case STOP:
+                if (!isPlayable()) {
+                    onPlayerListener.onError(PlayErrorStatus.EMPTY_FILE);
+                    return;
+                }
+                String nowNoteId = mDatabase.getNowNoteId();
+                MemoryPowerPlayer.DisplayType displayType = mDatabase.getDisplayType();
+                int count = mDatabase.getKeyPointList(nowNoteId, displayType).size();
+                mPlayer.setPlayCount(count);
+                mPlayer.play();
+                break;
         }
 
     }

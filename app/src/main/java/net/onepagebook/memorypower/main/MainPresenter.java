@@ -19,6 +19,10 @@ interface MainPresenter extends Presenter {
 
     void onClickRemember();
 
+    void onPlayTypeSpinnerItemSelected(int position);
+
+    void onDisplayTypeSpinnerItemSelected(int position);
+
     interface View extends Presenter.View {
         void setSubject(String subject);
 

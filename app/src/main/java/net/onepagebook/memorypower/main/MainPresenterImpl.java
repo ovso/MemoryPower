@@ -6,7 +6,6 @@ import net.onepagebook.memorypower.R;
 import net.onepagebook.memorypower.common.Log;
 import net.onepagebook.memorypower.common.ObjectUtils;
 import net.onepagebook.memorypower.db.KeyPoint;
-import net.onepagebook.memorypower.db.KeyPointNote;
 
 class MainPresenterImpl implements MainPresenter {
 
@@ -17,12 +16,24 @@ class MainPresenterImpl implements MainPresenter {
             .OnPlayerListener() {
 
         @Override
+        public void onPlay() {
+            mDatabase.setPlayKeyPointList(mDatabase.getKeyPointList(mDatabase.getNowNoteId(),
+                    mDatabase
+                            .getDisplayType()));
+
+            mView.setPlayPauseIcon(R.drawable.ic_pause);
+            mView.setSeekbarEnable(false);
+            mView.setSpinnerEnable(false);
+        }
+
+        @Override
         public void onTick(int index) {
-            KeyPointNote note = mDatabase.getKeyPointNote(mDatabase.getNowNoteId());
-            KeyPoint point = note.getKeyPoints().get(index);
+            KeyPoint point = mDatabase.getPlayKeyPointList().get(index);
+            mDatabase.setPlayKeyPoint(point);
             mView.setSubject(point.getSubject());
             mView.setContent(point.getContent());
-            int resId = point.isRemember()?R.string.remember_complete:R.string.remember_not_complete;
+            int resId = point.isRemember() ? R.string.remember_complete : R.string
+                    .remember_not_complete;
             mView.setRemembering(resId);
         }
 
@@ -41,13 +52,6 @@ class MainPresenterImpl implements MainPresenter {
             mView.setContent(null);
             mView.setPlayPauseIcon(R.drawable.ic_play);
             mView.setRemembering(0);
-        }
-
-        @Override
-        public void onPlay() {
-            mView.setPlayPauseIcon(R.drawable.ic_pause);
-            mView.setSeekbarEnable(false);
-            mView.setSpinnerEnable(false);
         }
 
         @Override
@@ -117,9 +121,8 @@ class MainPresenterImpl implements MainPresenter {
         PlayingStatus status = mPlayer.getPlayingStatus();
         if (status == PlayingStatus.STOP || status == PlayingStatus.PAUSE) {
             if (isPlayable()) {
-                mPlayer.setPlayCount(
-                        mDatabase.getKeyPointNote(mDatabase.getNowNoteId()).getKeyPoints
-                                ().size()
+                mPlayer.setPlayCount(mDatabase.getKeyPointList(mDatabase.getNowNoteId(),
+                        mDatabase.getDisplayType()).size()
                 );
             } else {
                 onPlayerListener.onError(PlayErrorStatus.EMPTY_FILE);
@@ -142,15 +145,34 @@ class MainPresenterImpl implements MainPresenter {
     @Override
     public void onClickRemember() {
         if (mPlayer.getPlayingStatus() == PlayingStatus.PLAYING) {
-            KeyPointNote note = mDatabase.getKeyPointNote(mDatabase.getNowNoteId());
-            if (!ObjectUtils.isEmpty(note)) {
-                mDatabase.setKeyPointRemember(note, mPlayer.getCurrentIndex());
+            KeyPoint keyPoint = mDatabase.getPlayKeyPoint();
+            if (!ObjectUtils.isEmpty(keyPoint)) {
+                mDatabase.setKeyPointRemember(mDatabase.getPlayKeyPoint());
+                mView.setRemembering(R.string.remember_complete);
             } else {
                 mView.showNoticeDialog(R.string.notice_no_items_can_be_memorized);
             }
         } else {
             mView.showNoticeDialog(R.string.notice_no_items_can_be_memorized);
         }
+    }
+
+    @Override
+    public void onPlayTypeSpinnerItemSelected(int position) {
+        mPlayer.setRandom(MemoryPowerPlayer.PlaybackType.RANDOM.getValue() == position);
+    }
+
+    @Override
+    public void onDisplayTypeSpinnerItemSelected(int position) {
+        MemoryPowerPlayer.DisplayType type;
+        if (MemoryPowerPlayer.DisplayType.ALL.getValue() == position) {
+            type = MemoryPowerPlayer.DisplayType.ALL;
+        } else if (MemoryPowerPlayer.DisplayType.REMEMBER.getValue() == position) {
+            type = MemoryPowerPlayer.DisplayType.REMEMBER;
+        } else {
+            type = MemoryPowerPlayer.DisplayType.NOT_REMEMBER;
+        }
+        mDatabase.setDisplayType(type);
     }
 
     private boolean isPlayable() {
@@ -174,5 +196,4 @@ class MainPresenterImpl implements MainPresenter {
         mDatabase.setNowNoteId(id);
         mView.setToolbarTitle(mDatabase.getNoteName(id));
     }
-
 }

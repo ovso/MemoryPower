@@ -3,6 +3,9 @@ package net.onepagebook.memorypower.main;
 import android.os.Handler;
 import android.os.Message;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import lombok.Setter;
 
 abstract class SimpleCountDownTimer {
@@ -13,6 +16,9 @@ abstract class SimpleCountDownTimer {
     private boolean mCancelled = false;
     @Setter
     private int index = 0;
+    @Setter
+    private boolean isRandom;
+    private ArrayList<Integer> indexList = new ArrayList<>();
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -21,7 +27,7 @@ abstract class SimpleCountDownTimer {
                     return;
                 }
                 if ((countDown - 1) >= index) {
-                    onTick(index);
+                    onTick(indexList.get(index));
                 } else if (countDown == index) {
                     onFinished();
                     cancel();
@@ -41,8 +47,18 @@ abstract class SimpleCountDownTimer {
 
     synchronized final SimpleCountDownTimer start() {
         mCancelled = false;
+        initIndexList();
         mHandler.sendMessage(mHandler.obtainMessage(MSG));
         return this;
+    }
+
+    private void initIndexList() {
+        for (int i = 0; i < countDown; i++) {
+            indexList.add(i);
+        }
+        if(isRandom) {
+            Collections.shuffle(indexList);
+        }
     }
 
     synchronized final void cancel() {

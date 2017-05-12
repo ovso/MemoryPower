@@ -21,7 +21,6 @@ import android.widget.TextView;
 import net.onepagebook.memorypower.R;
 import net.onepagebook.memorypower.add.ItemAddDialogBuilder;
 import net.onepagebook.memorypower.common.AbsBaseActivity;
-import net.onepagebook.memorypower.common.Log;
 import net.onepagebook.memorypower.create.CreateFileDialogBuilder;
 import net.onepagebook.memorypower.open.OpenFileClickListener;
 import net.onepagebook.memorypower.open.OpenFileDialogBuilder;
@@ -112,12 +111,6 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
                 .play_type_spinner_items, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPlayTypeSpinner.setAdapter(adapter);
-        mPlayTypeSpinner.setOnItemSelectedListener(new OnSimpleOnItemSelctedListener() {
-            @Override
-            public void onItemSelected(int position) {
-                Log.d("position = " + position);
-            }
-        });
     }
 
     @Override
@@ -139,8 +132,19 @@ public class MainActivity extends AbsBaseActivity implements MainPresenter.View,
         toggle.syncState();
 
         mNavigationView.setNavigationItemSelectedListener(this);
-
         mSpeedSeekbar.setOnProgressChangeListener(mOnSimpleProgressChangeListener());
+        mPlayTypeSpinner.setOnItemSelectedListener(new OnSimpleItemSelctedListener() {
+            @Override
+            public void onItemSelected(int position) {
+                mPresenter.onPlayTypeSpinnerItemSelected(position);
+            }
+        });
+        mDisplayTypeSpinner.setOnItemSelectedListener(new OnSimpleItemSelctedListener() {
+            @Override
+            public void onItemSelected(int position) {
+                mPresenter.onDisplayTypeSpinnerItemSelected(position);
+            }
+        });
     }
 
     private DiscreteSeekBar.OnProgressChangeListener mOnSimpleProgressChangeListener() {

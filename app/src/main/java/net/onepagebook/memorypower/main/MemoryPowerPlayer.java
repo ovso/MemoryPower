@@ -18,6 +18,9 @@ class MemoryPowerPlayer {
     private SimpleCountDownTimer countDownTimer;
     @Getter
     private int currentIndex = 0;
+    @Getter
+    @Setter
+    private boolean isRandom;
 
     MemoryPowerPlayer() {
         playingStatus = PlayingStatus.STOP;
@@ -49,6 +52,7 @@ class MemoryPowerPlayer {
             }
         };
         timer.setIndex(currentIndex);
+        timer.setRandom(isRandom);
         countDownTimer = timer.start();
     }
 
@@ -78,6 +82,33 @@ class MemoryPowerPlayer {
         }
     }
 
+    public enum PlaybackType {
+        SEQUENCIAL(0), RANDOM(1);
+        private int value;
+
+        PlaybackType(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    public enum DisplayType {
+        ALL(0), REMEMBER(1), NOT_REMEMBER(2);
+
+        private int value;
+
+        DisplayType(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
     interface OnPlayerListener {
         void onTick(int index);
 
@@ -93,5 +124,4 @@ class MemoryPowerPlayer {
 
         void onError(PlayErrorStatus status);
     }
-
 }

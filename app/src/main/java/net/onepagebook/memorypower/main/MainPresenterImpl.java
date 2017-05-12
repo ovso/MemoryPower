@@ -179,7 +179,7 @@ class MainPresenterImpl implements MainPresenter {
                 mView.showNoticeDialog(R.string.notice_no_items_can_be_memorized);
             }
         } else {
-            if(mPlayer.getMode() == MemoryPowerPlayer.Mode.SKIP_NEXT) {
+            if (mPlayer.getMode() == MemoryPowerPlayer.Mode.SKIP_NEXT) {
                 KeyPoint keyPoint = mDatabase.getPlayKeyPoint();
                 if (!ObjectUtils.isEmpty(keyPoint)) {
                     boolean isRemember = mDatabase.setKeyPointRemember(keyPoint);
@@ -233,8 +233,10 @@ class MainPresenterImpl implements MainPresenter {
     public void onStopTrackingTouch(int progress) {
         int interval = progress * 1000;
         mPlayer.setDisplayInterval(interval);
-        if(interval==0) {
+        if (interval == 0) {
             mPlayer.setMode(MemoryPowerPlayer.Mode.SKIP_NEXT);
+        } else {
+            mPlayer.setMode(MemoryPowerPlayer.Mode.GENERAL);
         }
     }
 

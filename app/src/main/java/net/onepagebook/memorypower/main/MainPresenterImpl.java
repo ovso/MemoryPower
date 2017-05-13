@@ -150,6 +150,10 @@ class MainPresenterImpl implements MainPresenter {
                 break;
 
             case R.id.nav_share:
+                mView.showNoticeDialog(R.string.comming_soon);
+                break;
+            case R.id.nav_setting:
+                mView.showNoticeDialog(R.string.comming_soon);
                 break;
         }
     }

@@ -22,4 +22,5 @@
     <string name="remember_availability">기억여부 : </string>
     <string name="remember_complete">완료</string>
     <string name="remember_not_complete">미완</string>
+    <string name="comming_soon">준비중입니다</string>
 </resources>

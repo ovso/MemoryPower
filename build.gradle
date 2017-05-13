@@ -29,4 +29,5 @@ ext {
     timberVer = '4.5.1'
     lombokVer = '1.16.16' // & install Android Studio lombok plugin
     discreteSeekbarVer = '1.0.1'
+    gsonVer = '2.8.0'
 }

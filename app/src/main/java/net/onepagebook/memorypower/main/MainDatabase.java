@@ -1,9 +1,17 @@
 package net.onepagebook.memorypower.main;
 
+import android.content.res.AssetManager;
+
+import com.google.gson.Gson;
+
+import net.onepagebook.memorypower.app.MyApplication;
 import net.onepagebook.memorypower.db.AbsDatabase;
 import net.onepagebook.memorypower.db.KeyPoint;
 import net.onepagebook.memorypower.db.KeyPointNote;
+import net.onepagebook.memorypower.db.SampleKeyPointNote;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +32,7 @@ class MainDatabase extends AbsDatabase {
     @Getter
     private KeyPoint playKeyPoint;
 
-    public KeyPointNote getKeyPointNote(String nowNoteId) {
+    KeyPointNote getKeyPointNote(String nowNoteId) {
         return mRealm.where(KeyPointNote.class).equalTo("id", nowNoteId).findFirst();
     }
 
@@ -65,4 +73,34 @@ class MainDatabase extends AbsDatabase {
         return isRemember;
     }
 
+    List<SampleKeyPointNote> loadSampleNote() {
+        ArrayList<SampleKeyPointNote> notes = new ArrayList<>();
+        AssetManager assetManager = MyApplication.getAppContext().getAssets();
+        String[] jsonFileNames;
+        try {
+            jsonFileNames = assetManager.list("sample");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        String json;
+        for (String jsonFileName : jsonFileNames) {
+            try {
+                InputStream is = MyApplication.getAppContext().getAssets().open("sample/" +
+                        jsonFileName);
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+                json = new String(buffer, "UTF-8");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+            notes.add(new Gson().fromJson(json, SampleKeyPointNote.class));
+        }
+
+        return notes;
+    }
 }

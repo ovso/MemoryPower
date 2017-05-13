@@ -6,6 +6,9 @@ import net.onepagebook.memorypower.R;
 import net.onepagebook.memorypower.common.Log;
 import net.onepagebook.memorypower.common.ObjectUtils;
 import net.onepagebook.memorypower.db.KeyPoint;
+import net.onepagebook.memorypower.db.SampleKeyPointNote;
+
+import java.util.List;
 
 class MainPresenterImpl implements MainPresenter {
 
@@ -100,6 +103,29 @@ class MainPresenterImpl implements MainPresenter {
         mView.setRemembering(0);
         mView.setSpinnerEnable(false);
         mPlayer.setDisplayInterval(1000);
+
+        if (mDatabase.isFirstRun()) {
+            createSampleFile();
+        }
+    }
+
+    private void createSampleFile() {
+        List<SampleKeyPointNote> notes = mDatabase.loadSampleNote();
+        if (!ObjectUtils.isEmpty(notes)) {
+            int size = notes.size();
+            for (int i = 0; i < size; i++) {
+                SampleKeyPointNote note = notes.get(i);
+                String noteId = mDatabase.createFile(note.getName());
+                List<SampleKeyPointNote.KeyPoint> itemList = note.getList();
+                if (!ObjectUtils.isEmpty(itemList)) {
+                    for (int j = 0; j < itemList.size(); j++) {
+                        SampleKeyPointNote.KeyPoint point = itemList.get(j);
+                        mDatabase.add(point.getSubject(), point.getContent(), noteId);
+                    }
+                }
+            }
+            mDatabase.setFirstRun(false);
+        }
     }
 
     @Override

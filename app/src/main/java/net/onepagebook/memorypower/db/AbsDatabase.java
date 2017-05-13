@@ -1,5 +1,7 @@
 package net.onepagebook.memorypower.db;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import net.onepagebook.memorypower.common.Log;
 
 import java.text.SimpleDateFormat;
@@ -25,11 +27,13 @@ public abstract class AbsDatabase {
         return r.size() > 0;
     }
 
-    public void createFile(String fileName) {
+    public String createFile(String fileName) {
         mRealm.beginTransaction();
-        KeyPointNote note = mRealm.createObject(KeyPointNote.class, getPrimaryKeyValue());
+        String noteId = getPrimaryKeyValue();
+        KeyPointNote note = mRealm.createObject(KeyPointNote.class, noteId);
         note.setName(fileName);
         mRealm.commitTransaction();
+        return noteId;
     }
 
     private String getPrimaryKeyValue() {
@@ -67,5 +71,23 @@ public abstract class AbsDatabase {
         return mRealm.where(KeyPointNote.class).findAll();
     }
 
+
+    public boolean isFirstRun() {
+        return Prefs.getBoolean("isFirstRun", true);
+    }
+
+    public void setFirstRun(boolean b) {
+        Prefs.putBoolean("isFirstRun", b);
+    }
+
+    public void add(String subject, String content, String noteId) {
+        mRealm.beginTransaction();
+        KeyPointNote note = mRealm.where(KeyPointNote.class).equalTo("id", noteId).findFirst();
+        KeyPoint point = new KeyPoint();
+        point.setSubject(subject);
+        point.setContent(content);
+        note.getKeyPoints().add(point);
+        mRealm.commitTransaction();
+    }
 
 }

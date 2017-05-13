@@ -2,6 +2,9 @@ package net.onepagebook.memorypower.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.ContextWrapper;
+
+import com.pixplicity.easyprefs.library.Prefs;
 
 import net.onepagebook.memorypower.BuildConfig;
 
@@ -23,5 +26,12 @@ public class MyApplication extends Application {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
+
+        new Prefs.Builder()
+                .setContext(this)
+                .setMode(ContextWrapper.MODE_PRIVATE)
+                .setPrefsName(getPackageName())
+                .setUseDefaultSharedPreference(true)
+                .build();
     }
 }

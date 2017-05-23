@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">MemoryPower</string>
+    <string name="file_open">열기</string>
+    <string name="start">시작</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">설정</string>
+    <string name="add_item">항목 추가</string>
+    <string name="create_file">파일 생성</string>
+    <string name="share">공유</string>
+    <string name="please_enter_file_name">파일명을 입력해 주세요.</string>
+    <string name="error_input_empty">입력되지 않았습니다</string>
+    <string name="error_file_name_exist">동일한 파일명이 존재합니다.</string>
+    <string name="please_enter_subject">제목을 입력하세요.</string>
+    <string name="item_add">항목추가</string>
+    <string name="please_enter_content">핵심내용을 입력하세요.</string>
+    <string name="notice_item_add_open_or_create">항목을 추가하려면 파일을 열거나 생성해야 합니다.</string>
+    <string name="notice_play_open_or_create">재생하려면 파일을 열거나 생성해야 합니다.</string>
+    <string name="notice_play_item_add">재생하려면 항목을 추가해야 합니다.</string>
+    <string name="notice_empty_file">파일이 없습니다. 파일을 생성해야 합니다.</string>
+    <string name="notice_no_items_can_be_memorized">기억할 수 있는 항목이 없습니다.</string>
+    <string name="remember_availability">기억여부 : </string>
+    <string name="remember_complete">완료</string>
+    <string name="remember_not_complete">미완</string>
+    <string name="comming_soon">준비중입니다</string>
 </resources>

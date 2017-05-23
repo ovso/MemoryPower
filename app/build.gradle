@@ -1,4 +1,17 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'realm-android'
+
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 
 android {
     compileSdkVersion 25
@@ -10,24 +23,61 @@ android {
         versionCode 1
         versionName "0.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            storePassword keystoreProperties['storePassword']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def formattedDate = new Date().format('yyyyMMdd_HHmmss')
+                    def apkName = "MemoryPower_" + variant.versionName + "_" + variant.versionCode + "_" + formattedDate + "_release.apk"
+                    output.outputFile = new File(output.outputFile.parent, apkName)
+                }
+            }
+        }
+        debug {
+
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibVer"
-    compile "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVer"
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibVer"
+    compile "com.android.support:design:$rootProject.ext.supportLibVer"
+    compile "com.android.support:support-vector-drawable:$rootProject.ext.supportLibVer"
     testCompile 'junit:junit:4.12'
 
-    compile "com.jakewharton:butterknife:$rootProject.butterknifeVer"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVer"
+    compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVer"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVer"
+
+    compile 'com.jakewharton.timber:timber:4.5.1'
+    compile 'org.projectlombok:lombok:1.16.16'  // & install Android Studio lombok plugin
+    compile 'org.adw.library:discrete-seekbar:1.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.pixplicity.easyprefs:library:1.8.1@aar'
+    compile 'com.google.code.gson:gson:2.8.0'
+
+
 }

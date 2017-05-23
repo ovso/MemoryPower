@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="play_type_spinner_items">
+        <item>순차 재생</item>
+        <item>랜덤 재생</item>
+    </string-array>
+    <string-array name="display_type_spinner_items">
+        <item>모두 보기</item>
+        <item>기억 보기</item>
+        <item>미완 보기</item>
+    </string-array>
+</resources>
